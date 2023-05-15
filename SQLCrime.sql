@@ -12,7 +12,7 @@ Tel varchar(255) Not null,
 Password varchar(255) Not null
 )
 Go
-Create table Administration (
+Create table Administrator (
 AdminID varchar(255) Primary key,
 Fullname varchar(255) Not null,
 Age int Not null,
