@@ -103,30 +103,22 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="lbControlFIR" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbLocation" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbDateOfDeath" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbCausesOfDeath" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtfLocation" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtfCauseOdDeath" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jdcDateOfDeath" pref="240" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbDoctorName" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbEvidence" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbLocation" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbDateOfDeath" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbCausesOfDeath" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtfLocation" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtfCauseOdDeath" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jdcDateOfDeath" pref="240" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbDoctorName" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbEvidence" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -142,13 +134,18 @@
                       </Group>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="429" max="-2" attributes="0"/>
+                      <Component id="lbControlPostMortem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbControlFIR" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbControlPostMortem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="44" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtfEvidence" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
@@ -192,12 +189,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lbControlFIR">
+            <Component class="javax.swing.JLabel" name="lbControlPostMortem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Control FIR"/>
+                <Property name="text" type="java.lang.String" value="Control PostMortem"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbLocation">
