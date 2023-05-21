@@ -186,33 +186,49 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lbType" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cbbType" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lbFullName" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="32" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="lbFullName" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="32" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="lbAge" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbGender" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="lbAge" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbOccupation" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbGender" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbOccupation" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtFullname" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtAge" alignment="0" pref="211" max="32767" attributes="0"/>
+                                          <Component id="cbbGender" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="txtOccupation" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="211" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton1" min="-2" pref="91" max="-2" attributes="0"/>
-                                  <Component id="jButton2" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButton3" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButton4" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnCreate" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="btnUpdate" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnDelete" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnReset" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -224,38 +240,49 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbControlCrime" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lbFullName" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="lbAge" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="lbGender" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Component id="lbOccupation" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                              <Component id="lbType" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbFullName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtFullname" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Component id="txtAge" min="-2" pref="22" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="lbAge" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lbGender" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cbbGender" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lbOccupation" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtOccupation" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="btnCreate" min="-2" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="btnUpdate" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="btnDelete" min="-2" pref="26" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton4" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="btnReset" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbType" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbbType" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -271,30 +298,45 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbFullName">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Full Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbAge">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Age"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbGender">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Gender"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbOccupation">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Occupation"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbType">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Type of crime"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnCreate">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/button/create-button.png"/>
@@ -307,37 +349,76 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnUpdate">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/button/update_button.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnDelete">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/button/delete-button.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="btnReset">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/button/reset_button.png"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="txtFullname">
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtAge">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbbGender">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Male"/>
+                    <StringItem index="1" value="Female"/>
+                    <StringItem index="2" value=" "/>
+                  </StringArray>
+                </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtOccupation">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbbType">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="13">
+                    <StringItem index="0" value="Corruption"/>
+                    <StringItem index="1" value="Counterfeit Currency Or Documents"/>
+                    <StringItem index="2" value="Crimes Against Children"/>
+                    <StringItem index="3" value="Cyber Crime"/>
+                    <StringItem index="4" value="Drug Trafficking"/>
+                    <StringItem index="5" value="Environmental Crime"/>
+                    <StringItem index="6" value="Financial Crime&#x9;"/>
+                    <StringItem index="7" value="Firearms Trafficking"/>
+                    <StringItem index="8" value="Human Trafficking"/>
+                    <StringItem index="9" value="Illcit Goods"/>
+                    <StringItem index="10" value="Killing Crime"/>
+                    <StringItem index="11" value="Kidnap Crime"/>
+                    <StringItem index="12" value=" "/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

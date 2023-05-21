@@ -42,11 +42,15 @@ public class Crime_Manage extends WindowAction {
         lbGender = new javax.swing.JLabel();
         lbOccupation = new javax.swing.JLabel();
         lbType = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        txtFullname = new javax.swing.JTextField();
+        txtAge = new javax.swing.JTextField();
+        cbbGender = new javax.swing.JComboBox<>();
+        txtOccupation = new javax.swing.JTextField();
+        cbbType = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Manage Crime");
@@ -82,37 +86,44 @@ public class Crime_Manage extends WindowAction {
         lbControlCrime.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbControlCrime.setText("CONTROL CRIME");
 
+        lbFullName.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbFullName.setText("Full Name");
 
+        lbAge.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbAge.setText("Age");
 
+        lbGender.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbGender.setText("Gender");
 
+        lbOccupation.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbOccupation.setText("Occupation");
 
+        lbType.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbType.setText("Type of crime");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
-        jButton1.setMaximumSize(new java.awt.Dimension(94, 100));
-        jButton1.setMinimumSize(new java.awt.Dimension(94, 100));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
+        btnCreate.setMaximumSize(new java.awt.Dimension(94, 100));
+        btnCreate.setMinimumSize(new java.awt.Dimension(94, 100));
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("jTextField1");
+        cbbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", " " }));
+
+        cbbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime", " " }));
 
         javax.swing.GroupLayout panelControlCrimeLayout = new javax.swing.GroupLayout(panelControlCrime);
         panelControlCrime.setLayout(panelControlCrimeLayout);
@@ -127,27 +138,38 @@ public class Crime_Manage extends WindowAction {
                 .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelControlCrimeLayout.createSequentialGroup()
                         .addComponent(lbType)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelControlCrimeLayout.createSequentialGroup()
-                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelControlCrimeLayout.createSequentialGroup()
+                                    .addComponent(lbFullName)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelControlCrimeLayout.createSequentialGroup()
+                                    .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lbAge, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbGender, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
                             .addGroup(panelControlCrimeLayout.createSequentialGroup()
-                                .addComponent(lbFullName)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelControlCrimeLayout.createSequentialGroup()
-                                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbAge, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbOccupation, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbGender, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                                .addComponent(lbOccupation)
+                                .addGap(30, 30, 30)))
+                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelControlCrimeLayout.createSequentialGroup()
+                                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFullname)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                    .addComponent(cbbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtOccupation))
+                        .addGap(57, 57, 57)
                         .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(68, 68, 68))))
+                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17))))
         );
         panelControlCrimeLayout.setVerticalGroup(
             panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,31 +177,39 @@ public class Crime_Manage extends WindowAction {
                 .addContainerGap()
                 .addComponent(lbControlCrime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelControlCrimeLayout.createSequentialGroup()
-                        .addComponent(lbFullName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelControlCrimeLayout.createSequentialGroup()
-                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelControlCrimeLayout.createSequentialGroup()
-                        .addComponent(lbAge)
-                        .addGap(30, 30, 30)
-                        .addComponent(lbGender)
-                        .addGap(42, 42, 42)
-                        .addComponent(lbOccupation)
-                        .addGap(80, 80, 80)
-                        .addComponent(lbType))
+                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbFullName)
+                            .addComponent(txtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelControlCrimeLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelControlCrimeLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(lbAge)
+                                .addGap(18, 18, 18)
+                                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbGender)
+                                    .addComponent(cbbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbOccupation)
+                                    .addComponent(txtOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(panelControlCrimeLayout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(196, 196, 196))
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
+                .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbType)
+                    .addComponent(cbbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(249, 249, 249))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -232,13 +262,13 @@ public class Crime_Manage extends WindowAction {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,12 +306,13 @@ public class Crime_Manage extends WindowAction {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cbbGender;
+    private javax.swing.JComboBox<String> cbbType;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbAge;
     private javax.swing.JLabel lbControlCrime;
     private javax.swing.JLabel lbFullName;
@@ -293,6 +324,9 @@ public class Crime_Manage extends WindowAction {
     private javax.swing.JPanel panelControlCrime;
     private javax.swing.JScrollPane scrollPaneCrime;
     private javax.swing.JTable tableCrime;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtFullname;
+    private javax.swing.JTextField txtOccupation;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
