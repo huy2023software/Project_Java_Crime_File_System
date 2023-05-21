@@ -29,7 +29,7 @@ public class Manage_PostMortem extends WindowAction {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnControlPostMortem = new javax.swing.JPanel();
         lbControlPostMortem = new javax.swing.JLabel();
         lbLocation = new javax.swing.JLabel();
         lbDateOfDeath = new javax.swing.JLabel();
@@ -46,7 +46,7 @@ public class Manage_PostMortem extends WindowAction {
         txtfDoctorName = new javax.swing.JTextField();
         lbDoctorName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbFir = new javax.swing.JTable();
+        tbPostMortem = new javax.swing.JTable();
         txtfSearch = new javax.swing.JTextField();
         lbLogoManagePostMortem = new javax.swing.JLabel();
         lbLogo = new javax.swing.JLabel();
@@ -56,7 +56,7 @@ public class Manage_PostMortem extends WindowAction {
         jPanel1.setBackground(new java.awt.Color(220, 220, 220));
         jPanel1.setPreferredSize(new java.awt.Dimension(1080, 660));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        pnControlPostMortem.setBackground(new java.awt.Color(204, 204, 204));
 
         lbControlPostMortem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbControlPostMortem.setText("Control PostMortem");
@@ -113,68 +113,68 @@ public class Manage_PostMortem extends WindowAction {
         lbDoctorName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbDoctorName.setText("Doctor Name");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnControlPostMortemLayout = new javax.swing.GroupLayout(pnControlPostMortem);
+        pnControlPostMortem.setLayout(pnControlPostMortemLayout);
+        pnControlPostMortemLayout.setHorizontalGroup(
+            pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                 .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbLocation)
                     .addComponent(lbDateOfDeath)
                     .addComponent(lbCausesOfDeath))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtfLocation)
                     .addComponent(txtfCauseOdDeath)
                     .addComponent(jdcDateOfDeath, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                 .addGap(55, 55, 55)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbDoctorName)
                     .addComponent(lbEvidence))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(96, 96, 96)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(58, 58, 58))
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                 .addGap(429, 429, 429)
                 .addComponent(lbControlPostMortem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnControlPostMortemLayout.setVerticalGroup(
+            pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbControlPostMortem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfEvidence, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfLocation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbEvidence, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbLocation, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jdcDateOfDeath, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbDateOfDeath))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtfDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbDoctorName))))
                 .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbCausesOfDeath, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtfCauseOdDeath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlPostMortemLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -186,8 +186,8 @@ public class Manage_PostMortem extends WindowAction {
                 .addContainerGap())
         );
 
-        tbFir.setBackground(new java.awt.Color(204, 204, 204));
-        tbFir.setModel(new javax.swing.table.DefaultTableModel(
+        tbPostMortem.setBackground(new java.awt.Color(204, 204, 204));
+        tbPostMortem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -198,7 +198,7 @@ public class Manage_PostMortem extends WindowAction {
                 "PostMortem ID", "Location", "Death Of Death ", "Causes Of Death", "Evidence", "Doctor Name ", "Admin ID"
             }
         ));
-        jScrollPane1.setViewportView(tbFir);
+        jScrollPane1.setViewportView(tbPostMortem);
 
         txtfSearch.setText("Search ...");
         txtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +223,7 @@ public class Manage_PostMortem extends WindowAction {
                         .addComponent(lbLogo)
                         .addGap(117, 117, 117)
                         .addComponent(lbLogoManagePostMortem))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnControlPostMortem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addGap(319, 319, 319))
         );
@@ -242,7 +242,7 @@ public class Manage_PostMortem extends WindowAction {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnControlPostMortem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,7 +317,6 @@ public class Manage_PostMortem extends WindowAction {
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcDateOfDeath;
     private javax.swing.JLabel lbCausesOfDeath;
@@ -328,7 +327,8 @@ public class Manage_PostMortem extends WindowAction {
     private javax.swing.JLabel lbLocation;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbLogoManagePostMortem;
-    private javax.swing.JTable tbFir;
+    private javax.swing.JPanel pnControlPostMortem;
+    private javax.swing.JTable tbPostMortem;
     private javax.swing.JTextField txtfCauseOdDeath;
     private javax.swing.JTextField txtfDoctorName;
     private javax.swing.JTextField txtfEvidence;
