@@ -34,6 +34,7 @@ public class Home_User extends WindowAction {
         btnRegisterComplaint = new javax.swing.JButton();
         btnViewComplaintStatus = new javax.swing.JButton();
         btnViewCaseHistory = new javax.swing.JButton();
+        btnViewMWTCrime = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("User Home");
@@ -61,6 +62,13 @@ public class Home_User extends WindowAction {
             }
         });
 
+        btnViewMWTCrime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/view_mwt_crime_of_user_account.png"))); // NOI18N
+        btnViewMWTCrime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewMWTCrimeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -69,29 +77,34 @@ public class Home_User extends WindowAction {
                 .addComponent(lbLogoCrimeFile)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addGap(148, 148, Short.MAX_VALUE)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbHome_User)
-                    .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                         .addComponent(btnRegisterComplaint)
-                        .addGap(65, 65, 65)
-                        .addComponent(btnViewComplaintStatus)))
-                .addGap(77, 77, 77)
-                .addComponent(btnViewCaseHistory)
-                .addGap(205, 205, 205))
+                        .addGap(56, 56, 56)
+                        .addComponent(btnViewComplaintStatus)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnViewCaseHistory)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnViewMWTCrime)
+                        .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addComponent(lbHome_User)
+                        .addGap(424, 424, 424))))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnViewCaseHistory)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(lbLogoCrimeFile)
-                        .addGap(99, 99, 99)
-                        .addComponent(lbHome_User)
-                        .addGap(78, 78, 78)
-                        .addComponent(btnRegisterComplaint, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnViewComplaintStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lbLogoCrimeFile)
+                .addGap(97, 97, 97)
+                .addComponent(lbHome_User)
+                .addGap(80, 80, 80)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnRegisterComplaint, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnViewCaseHistory)
+                        .addComponent(btnViewMWTCrime))
+                    .addComponent(btnViewComplaintStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(358, 358, 358))
         );
 
@@ -121,6 +134,10 @@ public class Home_User extends WindowAction {
     private void btnViewCaseHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCaseHistoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViewCaseHistoryActionPerformed
+
+    private void btnViewMWTCrimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMWTCrimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewMWTCrimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +178,7 @@ public class Home_User extends WindowAction {
     private javax.swing.JButton btnRegisterComplaint;
     private javax.swing.JButton btnViewCaseHistory;
     private javax.swing.JButton btnViewComplaintStatus;
+    private javax.swing.JButton btnViewMWTCrime;
     private javax.swing.JLabel lbHome_User;
     private javax.swing.JLabel lbLogoCrimeFile;
     private javax.swing.JPanel panel;
