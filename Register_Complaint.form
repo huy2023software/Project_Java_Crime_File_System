@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="title" type="java.lang.String" value="Register Complaint"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="panel" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="panel" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="panel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="dc" green="dc" red="dc" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbSuspectLocation" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbComplaintDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbSuspectName" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbType" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtDescription" alignment="1" min="-2" pref="369" max="-2" attributes="0"/>
+                      <Component id="cbbType" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSuspectName" min="-2" pref="369" max="-2" attributes="0"/>
+                      <Component id="txtSuspectLocation" min="-2" pref="369" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lbDayComplaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbbDayComplaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lbMonthComplaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbbMonthComplaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lbYearComplaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbbYearComplaint" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="285" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
+                  <Component id="lbRegisterComplaint" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="btnSendComplaint" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                  <Component id="btnReset" min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="346" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <Component id="lbRegisterComplaint" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbSuspectName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSuspectName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbSuspectLocation" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSuspectLocation" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbComplaintDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbDayComplaint" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbbDayComplaint" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lbMonthComplaint" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbbMonthComplaint" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lbYearComplaint" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbbYearComplaint" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbType" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbbType" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDescription" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnSendComplaint" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="btnReset" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lbLogo">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/logo/logo.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbRegisterComplaint">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/logo/logo_ register_complaint.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbSuspectName">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Suspect Name"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbSuspectLocation">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Suspect Location"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbComplaintDate">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Complaint Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbType">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Type"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDescription">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Description"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSendComplaint">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/button/send_button.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnReset">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/button/reset_button.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSuspectName">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSuspectNameActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSuspectLocation">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSuspectLocationActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDayComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Day"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbbDayComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="31">
+                <StringItem index="0" value="01"/>
+                <StringItem index="1" value="02"/>
+                <StringItem index="2" value="03"/>
+                <StringItem index="3" value="04"/>
+                <StringItem index="4" value="05"/>
+                <StringItem index="5" value="06"/>
+                <StringItem index="6" value="07"/>
+                <StringItem index="7" value="08"/>
+                <StringItem index="8" value="09"/>
+                <StringItem index="9" value="10"/>
+                <StringItem index="10" value="11"/>
+                <StringItem index="11" value="12"/>
+                <StringItem index="12" value="13"/>
+                <StringItem index="13" value="14"/>
+                <StringItem index="14" value="15"/>
+                <StringItem index="15" value="16"/>
+                <StringItem index="16" value="17"/>
+                <StringItem index="17" value="18"/>
+                <StringItem index="18" value="19"/>
+                <StringItem index="19" value="20"/>
+                <StringItem index="20" value="21"/>
+                <StringItem index="21" value="22"/>
+                <StringItem index="22" value="23"/>
+                <StringItem index="23" value="24"/>
+                <StringItem index="24" value="25"/>
+                <StringItem index="25" value="26"/>
+                <StringItem index="26" value="27"/>
+                <StringItem index="27" value="28"/>
+                <StringItem index="28" value="29"/>
+                <StringItem index="29" value="30"/>
+                <StringItem index="30" value="31"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbMonthComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Month"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbbMonthComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="12">
+                <StringItem index="0" value="01"/>
+                <StringItem index="1" value="02"/>
+                <StringItem index="2" value="03"/>
+                <StringItem index="3" value="04"/>
+                <StringItem index="4" value="05"/>
+                <StringItem index="5" value="06"/>
+                <StringItem index="6" value="07"/>
+                <StringItem index="7" value="08"/>
+                <StringItem index="8" value="09"/>
+                <StringItem index="9" value="10"/>
+                <StringItem index="10" value="11"/>
+                <StringItem index="11" value="12"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbYearComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Year"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbbYearComplaint">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="2"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="2021"/>
+                <StringItem index="1" value="2022"/>
+                <StringItem index="2" value="2023"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbbType">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="1"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Missing person"/>
+                <StringItem index="1" value="Most wanted crime"/>
+                <StringItem index="2" value="Others"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtDescription">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescriptionActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="btnReturn">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/button/btn_return.png"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

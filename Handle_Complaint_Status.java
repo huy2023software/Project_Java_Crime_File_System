@@ -35,6 +35,7 @@ public class Handle_Complaint_Status extends WindowAction {
         txtSearch = new javax.swing.JTextField();
         scrollPaneComplaints = new javax.swing.JScrollPane();
         tableComplaints = new javax.swing.JTable();
+        btnReturn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Handle Complaint Status");
@@ -46,11 +47,11 @@ public class Handle_Complaint_Status extends WindowAction {
 
         lbRegisterComplaint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_list_complaint.png"))); // NOI18N
 
-        txtSearch.setBackground(new java.awt.Color(204, 255, 255));
+        txtSearch.setBackground(new java.awt.Color(245, 245, 245));
         txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtSearch.setText("Search");
 
-        tableComplaints.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableComplaints.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tableComplaints.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -69,39 +70,41 @@ public class Handle_Complaint_Status extends WindowAction {
         });
         scrollPaneComplaints.setViewportView(tableComplaints);
 
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(lbLogo)
-                        .addGap(418, 418, 418))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                        .addGap(416, 416, 416)
-                        .addComponent(lbRegisterComplaint)))
+                .addGap(439, 439, 439)
+                .addComponent(lbRegisterComplaint)
                 .addGap(0, 424, Short.MAX_VALUE))
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(scrollPaneComplaints)
-                        .addContainerGap())
+                    .addComponent(scrollPaneComplaints)
                     .addGroup(panelLayout.createSequentialGroup()
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addComponent(btnReturn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbLogo))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(lbLogo)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbLogo)
+                    .addComponent(btnReturn))
                 .addGap(99, 99, 99)
                 .addComponent(lbRegisterComplaint)
                 .addGap(11, 11, 11)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, Short.MAX_VALUE)
-                .addComponent(scrollPaneComplaints, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(scrollPaneComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -155,6 +158,7 @@ public class Handle_Complaint_Status extends WindowAction {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnReturn;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbRegisterComplaint;
     private javax.swing.JPanel panel;
