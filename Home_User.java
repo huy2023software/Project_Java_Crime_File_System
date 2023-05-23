@@ -55,7 +55,7 @@ public class Home_User extends WindowAction {
             }
         });
 
-        btnViewCaseHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_view_complaint_status.png"))); // NOI18N
+        btnViewCaseHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_view_case.png"))); // NOI18N
         btnViewCaseHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewCaseHistoryActionPerformed(evt);
@@ -77,8 +77,11 @@ public class Home_User extends WindowAction {
                 .addComponent(lbLogoCrimeFile)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addComponent(lbHome_User)
+                        .addGap(424, 424, 424))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                         .addComponent(btnRegisterComplaint)
                         .addGap(56, 56, 56)
@@ -87,10 +90,7 @@ public class Home_User extends WindowAction {
                         .addComponent(btnViewCaseHistory)
                         .addGap(56, 56, 56)
                         .addComponent(btnViewMWTCrime)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                        .addComponent(lbHome_User)
-                        .addGap(424, 424, 424))))
+                        .addGap(33, 33, 33))))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,14 +98,14 @@ public class Home_User extends WindowAction {
                 .addComponent(lbLogoCrimeFile)
                 .addGap(97, 97, 97)
                 .addComponent(lbHome_User)
-                .addGap(80, 80, 80)
+                .addGap(86, 86, 86)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnRegisterComplaint, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnViewCaseHistory)
                         .addComponent(btnViewMWTCrime))
                     .addComponent(btnViewComplaintStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(358, 358, 358))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
