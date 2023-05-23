@@ -49,9 +49,9 @@ public class Manage_Prisoner extends WindowAction{
         btnDelete = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         lbStatus = new javax.swing.JLabel();
-        cbCrimeType = new javax.swing.JComboBox<>();
-        cbStatus = new javax.swing.JComboBox<>();
-        cbGender = new javax.swing.JComboBox<>();
+        cbCrimeType = new javax.swing.JComboBox<String>();
+        cbStatus = new javax.swing.JComboBox<String>();
+        cbGender = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -62,7 +62,8 @@ public class Manage_Prisoner extends WindowAction{
 
         lbLogoManagePrisoner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_prisoner.png"))); // NOI18N
 
-        txtfSearch.setText("Search ...");
+        txtfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtfSearch.setText("Search");
         txtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtfSearchActionPerformed(evt);
@@ -72,10 +73,7 @@ public class Manage_Prisoner extends WindowAction{
         tbFir.setBackground(new java.awt.Color(204, 204, 204));
         tbFir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Prisoner ID", "Full Name", "Age", "Gender", "Crime Type", "Prisoner Term", "Status"
@@ -151,19 +149,26 @@ public class Manage_Prisoner extends WindowAction{
         lbStatus.setText("Status");
 
         cbCrimeType.setBackground(new java.awt.Color(220, 220, 220));
-        cbCrimeType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CORRUPTION", "COUNTERFEIT CURRENCY AND DOCUMENTS", "CRIMES AGAINST CHILDREN", "CULTURAL HERITAGE CRIME", "CYBERCRIME", "DRUG TRAFFICKING", "ENVIRONMENTAL CRIME", "FINANCIAL CRIME", "FIREARMS TRAFFICKING", "HUMAN TRAFFICKING AND MIGRANT SMUGGLING", "ILLICIT GOODS", "MARITIME CRIME", "ORGANIZED CRIME", "TERRORISM", "VEHICLE CRIME", "WAR CRIMES" }));
+        cbCrimeType.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbCrimeType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime" }));
 
         cbStatus.setBackground(new java.awt.Color(220, 220, 220));
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Detained", "Released" }));
+        cbStatus.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Detained", "Released" }));
 
         cbGender.setBackground(new java.awt.Color(220, 220, 220));
-        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        cbGender.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
         javax.swing.GroupLayout pnControlFIRLayout = new javax.swing.GroupLayout(pnControlFIR);
         pnControlFIR.setLayout(pnControlFIRLayout);
         pnControlFIRLayout.setHorizontalGroup(
             pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnControlFIRLayout.createSequentialGroup()
+                .addGap(429, 429, 429)
+                .addComponent(lbControlPrisoner)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbAge)
@@ -184,23 +189,19 @@ public class Manage_Prisoner extends WindowAction{
                     .addComponent(txtfPrisonerTerm, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbCrimeType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
-            .addGroup(pnControlFIRLayout.createSequentialGroup()
-                .addGap(429, 429, 429)
-                .addComponent(lbControlPrisoner)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
         pnControlFIRLayout.setVerticalGroup(
             pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
+            .addGroup(pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -208,10 +209,10 @@ public class Manage_Prisoner extends WindowAction{
                 .addGap(18, 18, 18)
                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
+            .addGroup(pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbControlPrisoner)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pnControlFIRLayout.createSequentialGroup()
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -243,16 +244,22 @@ public class Manage_Prisoner extends WindowAction{
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbLogo)
                         .addGap(129, 129, 129)
-                        .addComponent(lbLogoManagePrisoner))
-                    .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addComponent(lbLogoManagePrisoner)
+                        .addGap(0, 363, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 722, Short.MAX_VALUE))
+                            .addComponent(pnControlFIR, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,15 +267,15 @@ public class Manage_Prisoner extends WindowAction{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbLogo)
-                        .addGap(0, 38, Short.MAX_VALUE))
+                        .addGap(0, 40, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lbLogoManagePrisoner)))
-                .addGap(18, 18, 18)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
