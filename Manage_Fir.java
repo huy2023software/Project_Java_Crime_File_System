@@ -6,7 +6,8 @@ package frame.fir;
 
 import frame.fir.Manage_Fir;
 import frame.background_processing.WindowAction;
-import frame.mainconnection.MainConnection;
+import frame.home.Home_Admin;
+import mainconnection.MainConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -48,6 +49,7 @@ public class Manage_Fir extends WindowAction {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        lbManageFir = new javax.swing.JLabel();
         txtfSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFir = new javax.swing.JTable();
@@ -66,31 +68,42 @@ public class Manage_Fir extends WindowAction {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
-        cbDate = new javax.swing.JComboBox<>();
-        cbMonth = new javax.swing.JComboBox<>();
-        cbYear = new javax.swing.JComboBox<>();
+        cbbDay = new javax.swing.JComboBox<>();
+        cbbMonth = new javax.swing.JComboBox<>();
+        cbbYear = new javax.swing.JComboBox<>();
         lbLogo = new javax.swing.JLabel();
-        lbLogoManageFIR = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(220, 220, 220));
         jPanel1.setPreferredSize(new java.awt.Dimension(1080, 660));
 
-        txtfSearch.setText("Search ...");
-        txtfSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfSearchActionPerformed(evt);
+        lbManageFir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_fir.png"))); // NOI18N
+
+        txtfSearch.setBackground(new java.awt.Color(245, 245, 245));
+        txtfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtfSearch.setText("Search");
+        txtfSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtfSearchFocusLost(evt);
+            }
+        });
+        txtfSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtfSearchMouseClicked(evt);
+            }
+        });
+        txtfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfSearchKeyReleased(evt);
             }
         });
 
         tbFir.setBackground(new java.awt.Color(204, 204, 204));
+        tbFir.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tbFir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "FIR ID", "Suspect Name", "Location", "Description", "Date Of Occurence", "Evidence", "Admin ID"
@@ -151,11 +164,6 @@ public class Manage_Fir extends WindowAction {
                 txtfEvidenceFocusLost(evt);
             }
         });
-        txtfEvidence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfEvidenceActionPerformed(evt);
-            }
-        });
 
         btnCreate.setBackground(new java.awt.Color(51, 153, 0));
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
@@ -172,9 +180,9 @@ public class Manage_Fir extends WindowAction {
         btnUpdate.setForeground(new java.awt.Color(0, 204, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
         btnUpdate.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
             }
         });
 
@@ -182,9 +190,9 @@ public class Manage_Fir extends WindowAction {
         btnDelete.setForeground(new java.awt.Color(255, 0, 51));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
         btnDelete.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
             }
         });
 
@@ -192,22 +200,17 @@ public class Manage_Fir extends WindowAction {
         btnReset.setForeground(new java.awt.Color(51, 51, 51));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
         btnReset.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
             }
         });
 
-        cbDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        cbbDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        cbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cbbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
-        cbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
-        cbYear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbYearActionPerformed(evt);
-            }
-        });
+        cbbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
 
         javax.swing.GroupLayout pnControlFIRLayout = new javax.swing.GroupLayout(pnControlFIR);
         pnControlFIR.setLayout(pnControlFIRLayout);
@@ -216,8 +219,9 @@ public class Manage_Fir extends WindowAction {
             .addGroup(pnControlFIRLayout.createSequentialGroup()
                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnControlFIRLayout.createSequentialGroup()
-                        .addGap(453, 453, 453)
-                        .addComponent(lbControlFIR))
+                        .addGap(435, 435, 435)
+                        .addComponent(lbControlFIR)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnControlFIRLayout.createSequentialGroup()
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnControlFIRLayout.createSequentialGroup()
@@ -244,19 +248,21 @@ public class Manage_Fir extends WindowAction {
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnControlFIRLayout.createSequentialGroup()
-                                        .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(28, 28, 28)
-                                        .addComponent(cbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                        .addComponent(cbbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnControlFIRLayout.createSequentialGroup()
+                                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnControlFIRLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40))
         );
         pnControlFIRLayout.setVerticalGroup(
@@ -264,7 +270,7 @@ public class Manage_Fir extends WindowAction {
             .addGroup(pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbControlFIR)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -281,9 +287,9 @@ public class Manage_Fir extends WindowAction {
                                         .addGap(57, 57, 57))
                                     .addGroup(pnControlFIRLayout.createSequentialGroup()
                                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cbDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbbYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(26, 26, 26)
                                         .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21)
@@ -296,35 +302,44 @@ public class Manage_Fir extends WindowAction {
                         .addGap(140, 140, 140))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
         lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo.png"))); // NOI18N
-
-        lbLogoManageFIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_fir.png"))); // NOI18N
+        lbLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLogoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbLogo)
-                .addGap(201, 201, 201)
-                .addComponent(lbLogoManageFIR)
-                .addContainerGap(368, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbLogo)
+                        .addGap(188, 188, 188)
+                        .addComponent(lbManageFir)
+                        .addGap(0, 375, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnControlFIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,16 +347,17 @@ public class Manage_Fir extends WindowAction {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbLogo)
-                        .addGap(0, 29, Short.MAX_VALUE))
+                        .addGap(0, 33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbLogoManageFIR)))
-                .addGap(27, 27, 27)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbManageFir)))
+                .addGap(8, 8, 8)
+                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -362,49 +378,17 @@ public class Manage_Fir extends WindowAction {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfSearchActionPerformed
-
-    private void txtfEvidenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfEvidenceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfEvidenceActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
-
-    private void tbFirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFirMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
-        int selectIndex = tbFir.getSelectedRow();
-        txtfSuspectName.setText(model.getValueAt(selectIndex, 1).toString());
-        txtfLocation.setText(model.getValueAt(selectIndex, 2).toString());
-        txtfDescription.setText(model.getValueAt(selectIndex, 3).toString());
-        txtfEvidence.setText(model.getValueAt(selectIndex, 5).toString());
-    }//GEN-LAST:event_tbFirMouseClicked
-
-    private void cbYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbYearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbYearActionPerformed
-
     private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        int selectRow = tbFir.getSelectedRow();
 
         String suspectName = txtfSuspectName.getText();
         String location = txtfLocation.getText();
         String description = txtfDescription.getText();
         String evidence = txtfEvidence.getText();
 
-        String dayStr = cbDate.getSelectedItem().toString();
-        String monthStr = cbMonth.getSelectedItem().toString();
-        String yearStr = cbYear.getSelectedItem().toString();
+        String dayStr = cbbDay.getSelectedItem().toString();
+        String monthStr = cbbMonth.getSelectedItem().toString();
+        String yearStr = cbbYear.getSelectedItem().toString();
 
         //parse string to int
         int day = Integer.parseInt(dayStr);
@@ -441,7 +425,18 @@ public class Manage_Fir extends WindowAction {
             preCreateFir.setString(6, evidence);
             preCreateFir.executeUpdate();
 
-            connFir.close();
+            rsCreateFir.close();
+            preCreateFir.close();
+            JOptionPane.showMessageDialog(null, "Create successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
+            model.setValueAt(suspectName, selectRow, 1);
+            model.setValueAt(location, selectRow, 2);
+            model.setValueAt(description, selectRow, 3);
+            model.setValueAt(date, selectRow, 4);
+            model.setValueAt(evidence, selectRow, 5);
+
+            tbFir.setModel(model);
         } catch (SQLException ex) {
             System.out.println("Error create " + ex);
         }
@@ -479,6 +474,165 @@ public class Manage_Fir extends WindowAction {
         }
     }//GEN-LAST:event_txtfEvidenceFocusLost
 
+    private void tbFirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFirMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
+        int selectIndex = tbFir.getSelectedRow();
+        txtfSuspectName.setText(model.getValueAt(selectIndex, 1).toString());
+        txtfLocation.setText(model.getValueAt(selectIndex, 2).toString());
+        txtfDescription.setText(model.getValueAt(selectIndex, 3).toString());
+        java.sql.Date dateValue = (java.sql.Date) model.getValueAt(selectIndex, 4);
+        txtfEvidence.setText(model.getValueAt(selectIndex, 5).toString());
+
+        LocalDate localDate = dateValue.toLocalDate();
+
+        int day = localDate.getDayOfMonth();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        cbbDay.setSelectedItem(String.valueOf(day));
+        cbbMonth.setSelectedItem(String.valueOf(month));
+        cbbYear.setSelectedItem(String.valueOf(year));
+    }//GEN-LAST:event_tbFirMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        int confirmResult = JOptionPane.showConfirmDialog(null, "You sure want to update ?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            int selectRow = tbFir.getSelectedRow();
+            String firID = tbFir.getValueAt(selectRow, 0).toString();
+            String suspectName = txtfSuspectName.getText();
+            String location = txtfLocation.getText();
+            String description = txtfDescription.getText();
+            String evidence = txtfEvidence.getText();
+
+            String dayStr = cbbDay.getSelectedItem().toString();
+            String monthStr = cbbMonth.getSelectedItem().toString();
+            String yearStr = cbbYear.getSelectedItem().toString();
+
+            //parse string to int
+            int day = Integer.parseInt(dayStr);
+            int month = Integer.parseInt(monthStr);
+            int year = Integer.parseInt(yearStr);
+
+            //check date month
+            LocalDate date = LocalDate.of(year, month, 1);
+            if (day < 1 || day > date.lengthOfMonth()) {
+                JOptionPane.showMessageDialog(null, "Date invalid", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            date = LocalDate.of(year, month, day);
+
+            try {
+                Statement staCreateFir = connFir.createStatement();
+                ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 FirID FROM FIR ORDER BY FirID DESC");
+
+                int maxFirID = 0;
+                if (rsCreateFir.next()) {
+                    String maxFirIDStr = rsCreateFir.getString("FirID");
+                    maxFirID = Integer.parseInt(maxFirIDStr.substring(3));
+                }
+
+                String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
+
+                PreparedStatement preUpdateFir = connFir.prepareStatement("Update FIR Set SuspectName = ?, Location = ?, "
+                               + "Description = ?, DateOfOccurence = ?, Evidence = ? WHERE FirID = ?");
+                preUpdateFir.setString(1, suspectName);
+                preUpdateFir.setString(2, location);
+                preUpdateFir.setString(3, description);
+                preUpdateFir.setDate(4, java.sql.Date.valueOf(date));
+                preUpdateFir.setString(5, evidence);
+                preUpdateFir.setString(6, firID);
+                preUpdateFir.executeUpdate();
+
+                rsCreateFir.close();
+                preUpdateFir.close();
+                JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
+                model.setValueAt(suspectName, selectRow, 1);
+                model.setValueAt(location, selectRow, 2);
+                model.setValueAt(description, selectRow, 3);
+                model.setValueAt(date, selectRow, 4);
+                model.setValueAt(evidence, selectRow, 5);
+
+                tbFir.setModel(model);
+            } catch (SQLException ex) {
+                System.out.println("Error create " + ex);
+            }
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        int rely = JOptionPane.showConfirmDialog(this, "You sure want to delete !", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (rely == JOptionPane.YES_OPTION) {
+            String idColumnDelete;
+            int rowDelete;
+            rowDelete = tbFir.getSelectedRow();
+            idColumnDelete = (String) tbFir.getValueAt(rowDelete, 0);
+            System.out.println(" " + idColumnDelete);
+            deleteRow(idColumnDelete);
+            dataArrayListFromFir();
+            loadDataArrayListToTable();
+            JOptionPane.showMessageDialog(this, "Successful Delete.");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void txtfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfSearchKeyReleased
+        arrFir.clear();
+        try {
+            String searchEnter = txtfSearch.getText();
+            String sqlSearch = "Select * From FIR Where FirID Like ? Or SuspectName Like ? Or Location Like ? Or Description Like ? Or Evidence Like ?";
+            PreparedStatement preSearch = connFir.prepareStatement(sqlSearch);
+            preSearch.setString(1, "%" + searchEnter + "%");
+            preSearch.setString(2, "%" + searchEnter + "%");
+            preSearch.setString(3, "%" + searchEnter + "%");
+            preSearch.setString(4, "%" + searchEnter + "%");
+            preSearch.setString(5, "%" + searchEnter + "%");
+            ResultSet rsSearch = preSearch.executeQuery();
+            while (rsSearch.next()) {
+                String firID = rsSearch.getString("FirID");
+                String suspectName = rsSearch.getString("SuspectName");
+                String location = rsSearch.getString("Location");
+                String description = rsSearch.getString("Description");
+                Date dateOfOccurence = rsSearch.getDate("DateOfOccurence");
+                String evidence = rsSearch.getString("Evidence");
+                String adminID = rsSearch.getString("AdminID");
+
+                Fir firTable = new Fir(firID, suspectName, location, description, dateOfOccurence, evidence, adminID);
+                arrFir.add(firTable);
+            }
+            loadDataArrayListToTable();
+        } catch (SQLException e) {
+            System.out.println("Error search " + e);
+        }
+    }//GEN-LAST:event_txtfSearchKeyReleased
+
+    private void txtfSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfSearchMouseClicked
+        txtfSearch.setText("");
+    }//GEN-LAST:event_txtfSearchMouseClicked
+
+    private void txtfSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfSearchFocusLost
+        txtfSearch.setText("Search ...");
+    }//GEN-LAST:event_txtfSearchFocusLost
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+
+        txtfSuspectName.setText("");
+        txtfLocation.setText("");
+        txtfDescription.setText("");
+        txtfEvidence.setText("");
+        cbbDay.setSelectedItem(1);
+        cbbMonth.setSelectedItem(1);
+        cbbYear.setSelectedItem(2023);
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void lbLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoMouseClicked
+       Home_Admin homeAdmin = new Home_Admin();
+       homeAdmin.setVisible(true);
+       dispose();
+    }//GEN-LAST:event_lbLogoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -495,7 +649,13 @@ public class Manage_Fir extends WindowAction {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Manage_Fir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Manage_Fir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Manage_Fir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Manage_Fir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -513,9 +673,9 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUpdate;
-    private static javax.swing.JComboBox<String> cbDate;
-    private static javax.swing.JComboBox<String> cbMonth;
-    private static javax.swing.JComboBox<String> cbYear;
+    private javax.swing.JComboBox<String> cbbDay;
+    private javax.swing.JComboBox<String> cbbMonth;
+    private javax.swing.JComboBox<String> cbbYear;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbControlFIR;
@@ -524,7 +684,7 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JLabel lbEvidence;
     private javax.swing.JLabel lbLocation;
     private javax.swing.JLabel lbLogo;
-    private javax.swing.JLabel lbLogoManageFIR;
+    private javax.swing.JLabel lbManageFir;
     private javax.swing.JLabel lbSuspectName;
     private javax.swing.JPanel pnControlFIR;
     private static javax.swing.JTable tbFir;
@@ -567,4 +727,21 @@ public class Manage_Fir extends WindowAction {
         }
     }
 
+    private void deleteRow(String idColumnDelete) {
+        int rows = 0;
+        try {
+            String sqlDelete = "Delete From FIR Where FirID = ?";
+            PreparedStatement preDelete = connFir.prepareStatement(sqlDelete);
+            preDelete.setString(1, idColumnDelete);
+            rows = preDelete.executeUpdate();
+            if (rows >= 1) {
+                System.out.println("Successful Delete");
+            } else {
+                System.out.println(rows + "Failed");
+            }
+            preDelete.close();
+        } catch (SQLException e) {
+            System.out.println("Error delete row" + e);
+        }
+    }
 }
