@@ -37,14 +37,15 @@ public class Manage_Case extends WindowAction {
         lbCaseName = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
         lbFirID = new javax.swing.JLabel();
-        txtfCaseName = new javax.swing.JTextField();
+        txtCaseName = new javax.swing.JTextField();
         txtStatus = new javax.swing.JTextField();
-        txtfFirID = new javax.swing.JTextField();
+        txtFirID = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         lbLogo = new javax.swing.JLabel();
+        btnReturn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -79,16 +80,16 @@ public class Manage_Case extends WindowAction {
         lbFirID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbFirID.setText("FIR ID");
 
-        txtfCaseName.setBackground(new java.awt.Color(228, 228, 228));
-        txtfCaseName.addActionListener(new java.awt.event.ActionListener() {
+        txtCaseName.setBackground(new java.awt.Color(228, 228, 228));
+        txtCaseName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfCaseNameActionPerformed(evt);
+                txtCaseNameActionPerformed(evt);
             }
         });
 
         txtStatus.setBackground(new java.awt.Color(228, 228, 228));
 
-        txtfFirID.setBackground(new java.awt.Color(228, 228, 228));
+        txtFirID.setBackground(new java.awt.Color(228, 228, 228));
 
         btnCreate.setBackground(new java.awt.Color(51, 153, 0));
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
@@ -136,7 +137,7 @@ public class Manage_Case extends WindowAction {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbFirID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtfFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,7 +145,7 @@ public class Manage_Case extends WindowAction {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbCaseName)
                         .addGap(37, 37, 37)
-                        .addComponent(txtfCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,14 +164,14 @@ public class Manage_Case extends WindowAction {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbCaseName)
-                            .addComponent(txtfCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbStatus))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtfFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbFirID))
                         .addGap(0, 70, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -186,6 +187,8 @@ public class Manage_Case extends WindowAction {
 
         lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo.png"))); // NOI18N
 
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,18 +199,21 @@ public class Manage_Case extends WindowAction {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbLogo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbManageCase)
                 .addGap(393, 393, 393))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btnReturn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbLogo))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbLogo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbLogo)
+                    .addComponent(btnReturn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(lbManageCase)
                 .addGap(18, 18, 18)
@@ -235,9 +241,9 @@ public class Manage_Case extends WindowAction {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfCaseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfCaseNameActionPerformed
+    private void txtCaseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCaseNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfCaseNameActionPerformed
+    }//GEN-LAST:event_txtCaseNameActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
@@ -290,6 +296,7 @@ public class Manage_Case extends WindowAction {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReset;
+    private javax.swing.JLabel btnReturn;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -301,8 +308,8 @@ public class Manage_Case extends WindowAction {
     private javax.swing.JLabel lbManageCase;
     private javax.swing.JLabel lbStatus;
     private javax.swing.JTable tbCase;
+    private javax.swing.JTextField txtCaseName;
+    private javax.swing.JTextField txtFirID;
     private javax.swing.JTextField txtStatus;
-    private javax.swing.JTextField txtfCaseName;
-    private javax.swing.JTextField txtfFirID;
     // End of variables declaration//GEN-END:variables
 }
