@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frame.most_wanted_crime;
+package frame.mwcrime;
 
 import frame.background_processing.WindowAction;
 
@@ -57,8 +57,8 @@ public class Manage_MostWantedCrime extends WindowAction {
         lbDoctorName4 = new javax.swing.JLabel();
         txtfRewardAmount = new javax.swing.JTextField();
         txtfAge = new javax.swing.JTextField();
-        cbGender = new javax.swing.JComboBox<String>();
-        cbType = new javax.swing.JComboBox<String>();
+        cbGender = new javax.swing.JComboBox<>();
+        cbType = new javax.swing.JComboBox<>();
         btnImage = new javax.swing.JButton();
         btnReturn = new javax.swing.JLabel();
 
@@ -179,11 +179,11 @@ public class Manage_MostWantedCrime extends WindowAction {
 
         cbGender.setBackground(new java.awt.Color(220, 220, 220));
         cbGender.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
+        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         cbType.setBackground(new java.awt.Color(220, 220, 220));
         cbType.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime" }));
+        cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime" }));
 
         btnImage.setBackground(new java.awt.Color(220, 220, 220));
         btnImage.setText("Choose File");
