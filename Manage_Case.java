@@ -1,4 +1,3 @@
-
 import frame.background_processing.WindowAction;
 
 /*
