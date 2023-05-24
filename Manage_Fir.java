@@ -322,6 +322,11 @@ public class Manage_Fir extends WindowAction {
 
         btnReturn.setBackground(new java.awt.Color(220, 220, 220));
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -636,10 +641,16 @@ public class Manage_Fir extends WindowAction {
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void lbLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoMouseClicked
-       Home_Admin homeAdmin = new Home_Admin();
-       homeAdmin.setVisible(true);
-       dispose();
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
     }//GEN-LAST:event_lbLogoMouseClicked
+
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnReturnMouseClicked
 
     /**
      * @param args the command line arguments
