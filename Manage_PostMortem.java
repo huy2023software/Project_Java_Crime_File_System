@@ -5,6 +5,20 @@
 package frame.postmortem;
 
 import frame.background_processing.WindowAction;
+import frame.home.Home_Admin;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import mainconnection.MainConnection;
+import object.PostMortem;
 
 /**
  *
@@ -12,11 +26,16 @@ import frame.background_processing.WindowAction;
  */
 public class Manage_PostMortem extends WindowAction {
 
+    public static final ArrayList<PostMortem> arrPostmortem = new ArrayList<PostMortem>();
+    public static final Connection connCrimeFile = MainConnection.getConnection();
+
     /**
      * Creates new form Manage_PostMortem
      */
     public Manage_PostMortem() {
+        dataArrayListPostMortem();
         initComponents();
+        loadDataArrayListToTable();
     }
 
     /**
@@ -35,23 +54,24 @@ public class Manage_PostMortem extends WindowAction {
         lbDateOfDeath = new javax.swing.JLabel();
         lbCausesOfDeath = new javax.swing.JLabel();
         lbEvidence = new javax.swing.JLabel();
-        txtfCauseOdDeath = new javax.swing.JTextField();
-        txtfLocation = new javax.swing.JTextField();
-        txtfEvidence = new javax.swing.JTextField();
-        txtfDoctorName = new javax.swing.JTextField();
+        txtCauseOdDeath = new javax.swing.JTextField();
+        txtLocation = new javax.swing.JTextField();
+        txtEvidence = new javax.swing.JTextField();
+        txtDoctorName = new javax.swing.JTextField();
         lbDoctorName = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
-        cbbDay = new javax.swing.JComboBox<String>();
-        cbbMonth = new javax.swing.JComboBox<String>();
-        cbbYear = new javax.swing.JComboBox<String>();
+        cbbDay = new javax.swing.JComboBox<>();
+        cbbMonth = new javax.swing.JComboBox<>();
+        cbbYear = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPostMortem = new javax.swing.JTable();
-        txtfSearch = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         lbLogoManagePostMortem = new javax.swing.JLabel();
         lbLogo = new javax.swing.JLabel();
+        btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -75,13 +95,33 @@ public class Manage_PostMortem extends WindowAction {
         lbEvidence.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbEvidence.setText("Evidence");
 
-        txtfCauseOdDeath.setBackground(new java.awt.Color(220, 220, 220));
+        txtCauseOdDeath.setBackground(new java.awt.Color(220, 220, 220));
+        txtCauseOdDeath.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCauseOdDeathFocusLost(evt);
+            }
+        });
 
-        txtfLocation.setBackground(new java.awt.Color(220, 220, 220));
+        txtLocation.setBackground(new java.awt.Color(220, 220, 220));
+        txtLocation.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLocationFocusLost(evt);
+            }
+        });
 
-        txtfEvidence.setBackground(new java.awt.Color(220, 220, 220));
+        txtEvidence.setBackground(new java.awt.Color(220, 220, 220));
+        txtEvidence.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEvidenceFocusLost(evt);
+            }
+        });
 
-        txtfDoctorName.setBackground(new java.awt.Color(220, 220, 220));
+        txtDoctorName.setBackground(new java.awt.Color(220, 220, 220));
+        txtDoctorName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDoctorNameFocusLost(evt);
+            }
+        });
 
         lbDoctorName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbDoctorName.setText("Doctor Name");
@@ -89,27 +129,27 @@ public class Manage_PostMortem extends WindowAction {
         btnReset.setBackground(new java.awt.Color(51, 51, 51));
         btnReset.setForeground(new java.awt.Color(51, 51, 51));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
             }
         });
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setForeground(new java.awt.Color(255, 0, 51));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
             }
         });
 
         btnUpdate.setBackground(new java.awt.Color(51, 204, 255));
         btnUpdate.setForeground(new java.awt.Color(0, 204, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
             }
         });
 
@@ -117,17 +157,17 @@ public class Manage_PostMortem extends WindowAction {
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
         btnCreate.setMaximumSize(new java.awt.Dimension(95, 31));
-
-        cbbDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        cbbMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        cbbYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
-        cbbYear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbYearActionPerformed(evt);
+        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCreateMouseClicked(evt);
             }
         });
+
+        cbbDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        cbbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        cbbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
 
         javax.swing.GroupLayout pnControlPostMortemLayout = new javax.swing.GroupLayout(pnControlPostMortem);
         pnControlPostMortem.setLayout(pnControlPostMortemLayout);
@@ -153,8 +193,8 @@ public class Manage_PostMortem extends WindowAction {
                                 .addComponent(lbCausesOfDeath)
                                 .addGap(18, 18, 18)))))
                 .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtfLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(txtfCauseOdDeath)
+                    .addComponent(txtLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(txtCauseOdDeath)
                     .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                         .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -169,8 +209,8 @@ public class Manage_PostMortem extends WindowAction {
                             .addComponent(lbEvidence))
                         .addGap(18, 18, 18)
                         .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfDoctorName, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                            .addComponent(txtfEvidence))
+                            .addComponent(txtDoctorName, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtEvidence))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,11 +230,11 @@ public class Manage_PostMortem extends WindowAction {
                         .addComponent(lbControlPostMortem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                                 .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbEvidence)
-                                    .addComponent(txtfLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbLocation))
                                 .addGap(34, 34, 34)
                                 .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -205,20 +245,20 @@ public class Manage_PostMortem extends WindowAction {
                                             .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cbbYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(txtfDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(32, 32, 32)
                                 .addGroup(pnControlPostMortemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbCausesOfDeath)
-                                    .addComponent(txtfCauseOdDeath, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtCauseOdDeath, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(pnControlPostMortemLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
 
@@ -229,16 +269,31 @@ public class Manage_PostMortem extends WindowAction {
 
             },
             new String [] {
-                "PostMortem ID", "Location", "Death Of Death ", "Causes Of Death", "Evidence", "Doctor Name ", "Admin ID"
+                "PostMortem ID", "Location", "Date Of Death ", "Causes Of Death", "Evidence", "Doctor Name ", "Admin ID"
             }
         ));
+        tbPostMortem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPostMortemMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbPostMortem);
 
-        txtfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtfSearch.setText("Search");
-        txtfSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfSearchActionPerformed(evt);
+        txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSearch.setText("Search");
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSearchMouseClicked(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
             }
         });
 
@@ -246,31 +301,45 @@ public class Manage_PostMortem extends WindowAction {
 
         lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo.png"))); // NOI18N
 
+        btnReturn.setBackground(new java.awt.Color(220, 220, 220));
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbLogo)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnControlPostMortem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(319, 319, 319))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(341, 341, 341)
                 .addComponent(lbLogoManagePostMortem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnReturn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbLogo))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnControlPostMortem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(319, 319, 319))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbLogo)
+                    .addComponent(btnReturn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(lbLogoManagePostMortem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -296,25 +365,254 @@ public class Manage_PostMortem extends WindowAction {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfSearchActionPerformed
+    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        int selectRow = tbPostMortem.getSelectedRow();
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
+        String location = txtLocation.getText();
+        String causeOfDeath = txtCauseOdDeath.getText();
+        String evidence = txtEvidence.getText();
+        String doctorName = txtDoctorName.getText();
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        String dayStr = cbbDay.getSelectedItem().toString();
+        String monthStr = cbbMonth.getSelectedItem().toString();
+        String yearStr = cbbYear.getSelectedItem().toString();
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        //parse string to int
+        int day = Integer.parseInt(dayStr);
+        int month = Integer.parseInt(monthStr);
+        int year = Integer.parseInt(yearStr);
 
-    private void cbbYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbYearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbYearActionPerformed
+        //check date month
+        LocalDate date = LocalDate.of(year, month, 1);
+        if (day < 1 || day > date.lengthOfMonth()) {
+            JOptionPane.showMessageDialog(null, "Date invalid", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        date = LocalDate.of(year, month, day);
+
+        try {
+            Statement staCreatePostMortem = connCrimeFile.createStatement();
+            ResultSet rsCreatePostMortem = staCreatePostMortem.executeQuery("SELECT TOP 1 PostMortemID FROM PostMortem ORDER BY PostMortemID DESC");
+
+            int maxPostMortemID = 0;
+            if (rsCreatePostMortem.next()) {
+                String maxPostMortemIDStr = rsCreatePostMortem.getString("PostMortemID");
+                maxPostMortemID = Integer.parseInt(maxPostMortemIDStr.substring(3));
+            }
+
+            String nextPostMortemID = "Pmt" + String.format("%03d", maxPostMortemID + 1);
+
+            PreparedStatement preCreatePostMortem = connCrimeFile.prepareStatement("INSERT INTO PostMortem (PostMortemID, Location, DateOfDeath, CauseOfDeath,"
+                           + " Evidence, DoctorName) VALUES (?,?,?,?,?,?)");
+            preCreatePostMortem.setString(1, nextPostMortemID);
+            preCreatePostMortem.setString(2, location);
+            preCreatePostMortem.setDate(3, java.sql.Date.valueOf(date));
+            preCreatePostMortem.setString(4, causeOfDeath);
+            preCreatePostMortem.setString(5, evidence);
+            preCreatePostMortem.setString(6, doctorName);
+            preCreatePostMortem.executeUpdate();
+
+            rsCreatePostMortem.close();
+            preCreatePostMortem.close();
+            JOptionPane.showMessageDialog(null, "Create successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dataArrayListPostMortem();
+            loadDataArrayListToTable();
+        } catch (SQLException ex) {
+            System.out.println("Error create " + ex);
+        }
+    }//GEN-LAST:event_btnCreateMouseClicked
+
+    private void tbPostMortemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPostMortemMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tbPostMortem.getModel();
+        int selectIndex = tbPostMortem.getSelectedRow();
+        txtLocation.setText(model.getValueAt(selectIndex, 1).toString());
+        java.sql.Date dateValue = (java.sql.Date) model.getValueAt(selectIndex, 2);
+        txtCauseOdDeath.setText(model.getValueAt(selectIndex, 3).toString());
+        txtEvidence.setText(model.getValueAt(selectIndex, 4).toString());
+        txtDoctorName.setText(model.getValueAt(selectIndex, 5).toString());
+
+        LocalDate localDate = dateValue.toLocalDate();
+
+        int day = localDate.getDayOfMonth();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        cbbDay.setSelectedItem(String.valueOf(day));
+        cbbMonth.setSelectedItem(String.valueOf(month));
+        cbbYear.setSelectedItem(String.valueOf(year));
+    }//GEN-LAST:event_tbPostMortemMouseClicked
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        arrPostmortem.clear();
+        try {
+            String searchEnter = txtSearch.getText();
+            String sqlSearch = "Select PostMortemID, Location, DateOfDeath, CauseOfDeath, Evidence, DoctorName, AdminID FROM PostMortem Where PostMortemID Like ? Or Location Like ? "
+                           + "Or CauseOfDeath Like ? Or Evidence Like ? Or DoctorName Like ?";
+            PreparedStatement preSearch = connCrimeFile.prepareStatement(sqlSearch);
+            preSearch.setString(1, "%" + searchEnter + "%");
+            preSearch.setString(2, "%" + searchEnter + "%");
+            preSearch.setString(3, "%" + searchEnter + "%");
+            preSearch.setString(4, "%" + searchEnter + "%");
+            preSearch.setString(5, "%" + searchEnter + "%");
+            ResultSet rsPostMortem = preSearch.executeQuery();
+            while (rsPostMortem.next()) {
+                String postMortemID = rsPostMortem.getString("PostMortemID");
+                String location = rsPostMortem.getString("Location");
+                Date dateOfDeath = rsPostMortem.getDate("DateOfDeath");
+                String causeOfDeath = rsPostMortem.getString("CauseOfDeath");
+                String evidence = rsPostMortem.getString("Evidence");
+                String doctorName = rsPostMortem.getString("DoctorName");
+                String adminID = rsPostMortem.getString("AdminID");
+
+                PostMortem postmortemTable = new PostMortem(postMortemID, location, dateOfDeath, causeOfDeath, evidence, doctorName, adminID, "", 0, ' ', "", "", "");
+                arrPostmortem.add(postmortemTable);
+            }
+            loadDataArrayListToTable();
+        } catch (SQLException e) {
+            System.out.println("Error search " + e);
+        }
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        txtSearch.setText("Search");
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
+        txtSearch.setText("");
+    }//GEN-LAST:event_txtSearchMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        int rely = JOptionPane.showConfirmDialog(this, "You sure want to delete !", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (rely == JOptionPane.YES_OPTION) {
+            String idColumnDelete;
+            int rowDelete;
+            rowDelete = tbPostMortem.getSelectedRow();
+            idColumnDelete = (String) tbPostMortem.getValueAt(rowDelete, 0);
+            System.out.println(" " + idColumnDelete);
+            deleteRow(idColumnDelete);
+            dataArrayListPostMortem();
+            loadDataArrayListToTable();
+            JOptionPane.showMessageDialog(this, "Successful Delete.");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void txtLocationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Location not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtLocationFocusLost
+
+    private void txtCauseOdDeathFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCauseOdDeathFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cause Of Death not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtCauseOdDeathFocusLost
+
+    private void txtEvidenceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEvidenceFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Evidence not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtEvidenceFocusLost
+
+    private void txtDoctorNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDoctorNameFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Doctor Name not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtDoctorNameFocusLost
+
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnReturnMouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        txtLocation.setText("");
+        txtCauseOdDeath.setText("");
+        txtEvidence.setText("");
+        txtDoctorName.setText("");
+        cbbDay.setSelectedItem(1);
+        cbbMonth.setSelectedItem(1);
+        cbbYear.setSelectedItem(2023);
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+         int confirmResult = JOptionPane.showConfirmDialog(null, "You sure want to update ?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            int selectRow = tbPostMortem.getSelectedRow();
+            String firID = tbPostMortem.getValueAt(selectRow, 0).toString();
+            String location = txtLocation.getText();
+            String  causeOfDeath= txtCauseOdDeath.getText();
+            String evidence = txtEvidence.getText();
+            String doctorName = txtDoctorName.getText();
+
+            String dayStr = cbbDay.getSelectedItem().toString();
+            String monthStr = cbbMonth.getSelectedItem().toString();
+            String yearStr = cbbYear.getSelectedItem().toString();
+
+            //parse string to int
+            int day = Integer.parseInt(dayStr);
+            int month = Integer.parseInt(monthStr);
+            int year = Integer.parseInt(yearStr);
+
+            //check date month
+            LocalDate date = LocalDate.of(year, month, 1);
+            if (day < 1 || day > date.lengthOfMonth()) {
+                JOptionPane.showMessageDialog(null, "Date invalid", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            date = LocalDate.of(year, month, day);
+
+            try {
+                Statement staCreateFir = connCrimeFile.createStatement();
+                ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 PostMortemID FROM PostMortem ORDER BY PostMortemID DESC");
+
+                int maxFirID = 0;
+                if (rsCreateFir.next()) {
+                    String maxFirIDStr = rsCreateFir.getString("PostMortemID");
+                    maxFirID = Integer.parseInt(maxFirIDStr.substring(3));
+                }
+
+                String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
+
+                PreparedStatement preUpdateFir = connCrimeFile.prepareStatement("Update PostMortem Set Location = ?, DateOfDeath = ?, "
+                               + "CauseOfDeath = ?, Evidence = ?, DoctorName = ? WHERE PostMortemID = ?");
+                preUpdateFir.setString(1, location);
+                preUpdateFir.setDate(2, java.sql.Date.valueOf(date));
+                preUpdateFir.setString(3, causeOfDeath);
+                preUpdateFir.setString(4, evidence);
+                preUpdateFir.setString(5, doctorName);
+                preUpdateFir.setString(6, firID);
+                preUpdateFir.executeUpdate();
+
+                rsCreateFir.close();
+                preUpdateFir.close();
+                JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                DefaultTableModel model = (DefaultTableModel) tbPostMortem.getModel();
+                model.setValueAt(location, selectRow, 1);
+                model.setValueAt(date, selectRow, 2);
+                model.setValueAt(causeOfDeath, selectRow, 3);
+                model.setValueAt(evidence, selectRow, 4);
+                model.setValueAt(doctorName, selectRow, 5);
+
+                tbPostMortem.setModel(model);
+            } catch (SQLException ex) {
+                System.out.println("Error create " + ex);
+            }
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
 
     /**
      * @param args the command line arguments
@@ -355,6 +653,7 @@ public class Manage_PostMortem extends WindowAction {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbbDay;
     private javax.swing.JComboBox<String> cbbMonth;
@@ -370,11 +669,62 @@ public class Manage_PostMortem extends WindowAction {
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbLogoManagePostMortem;
     private javax.swing.JPanel pnControlPostMortem;
-    private javax.swing.JTable tbPostMortem;
-    private javax.swing.JTextField txtfCauseOdDeath;
-    private javax.swing.JTextField txtfDoctorName;
-    private javax.swing.JTextField txtfEvidence;
-    private javax.swing.JTextField txtfLocation;
-    private javax.swing.JTextField txtfSearch;
+    private static javax.swing.JTable tbPostMortem;
+    private javax.swing.JTextField txtCauseOdDeath;
+    private javax.swing.JTextField txtDoctorName;
+    private javax.swing.JTextField txtEvidence;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void dataArrayListPostMortem() {
+        arrPostmortem.clear();
+        try {
+            Statement staPostMortem = connCrimeFile.createStatement();
+            ResultSet rsPostMortem = staPostMortem.executeQuery("SELECT PostMortemID, Location, DateOfDeath, CauseOfDeath, Evidence, DoctorName, AdminID FROM PostMortem");
+            while (rsPostMortem.next()) {
+                String postMortemID = rsPostMortem.getString("PostMortemID");
+                String location = rsPostMortem.getString("Location");
+                Date dateOfDeath = rsPostMortem.getDate("DateOfDeath");
+                String causeOfDeath = rsPostMortem.getString("CauseOfDeath");
+                String evidence = rsPostMortem.getString("Evidence");
+                String doctorName = rsPostMortem.getString("DoctorName");
+                String adminID = rsPostMortem.getString("AdminID");
+
+                PostMortem postmortemTable = new PostMortem(postMortemID, location, dateOfDeath, causeOfDeath, evidence, doctorName, adminID, "", 0, ' ', "", "", "");
+                arrPostmortem.add(postmortemTable);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving data from FIR: " + e);
+        }
+    }
+
+    private void loadDataArrayListToTable() {
+        DefaultTableModel model = (DefaultTableModel) Manage_PostMortem.tbPostMortem.getModel();
+        model.setRowCount(0);
+
+        for (PostMortem postMortem : arrPostmortem) {
+            model.addRow(new Object[]{postMortem.getpostMortemID(), postMortem.getLocation(), postMortem.getDateofDeath(), postMortem.getCauseofDeath(),
+                postMortem.getEvidence(), postMortem.getDoctorName(), postMortem.getAdminID()
+            });
+        }
+    }
+
+    private void deleteRow(String idColumnDelete) {
+        int rows = 0;
+        try {
+            String sqlDelete = "Delete From PostMortem Where PostMortemID = ?";
+            PreparedStatement preDelete = connCrimeFile.prepareStatement(sqlDelete);
+            preDelete.setString(1, idColumnDelete);
+            rows = preDelete.executeUpdate();
+            if (rows >= 1) {
+                System.out.println("Successful Delete");
+            } else {
+                System.out.println(rows + "Failed");
+            }
+            preDelete.close();
+        } catch (SQLException e) {
+            System.out.println("Error delete row" + e);
+        }
+    }
 }
