@@ -28,7 +28,7 @@ import object.Fir;
 public class Manage_Fir extends WindowAction {
 
     public static final ArrayList<Fir> arrFir = new ArrayList<Fir>();
-    public static final Connection connFir = MainConnection.getConnection();
+    public static final Connection connCrimeFile = MainConnection.getConnection();
 
     /**
      * Creates new form Manage_Fir
@@ -50,7 +50,7 @@ public class Manage_Fir extends WindowAction {
 
         jPanel1 = new javax.swing.JPanel();
         lbManageFir = new javax.swing.JLabel();
-        txtfSearch = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbFir = new javax.swing.JTable();
         pnControlFIR = new javax.swing.JPanel();
@@ -60,10 +60,10 @@ public class Manage_Fir extends WindowAction {
         lbDescription = new javax.swing.JLabel();
         lbEvidence = new javax.swing.JLabel();
         lbDateOfOccurence = new javax.swing.JLabel();
-        txtfLocation = new javax.swing.JTextField();
-        txtfDescription = new javax.swing.JTextField();
-        txtfSuspectName = new javax.swing.JTextField();
-        txtfEvidence = new javax.swing.JTextField();
+        txtLocation = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
+        txtSuspectName = new javax.swing.JTextField();
+        txtEvidence = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -72,6 +72,7 @@ public class Manage_Fir extends WindowAction {
         cbbMonth = new javax.swing.JComboBox<>();
         cbbYear = new javax.swing.JComboBox<>();
         lbLogo = new javax.swing.JLabel();
+        btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -80,22 +81,22 @@ public class Manage_Fir extends WindowAction {
 
         lbManageFir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_fir.png"))); // NOI18N
 
-        txtfSearch.setBackground(new java.awt.Color(245, 245, 245));
-        txtfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtfSearch.setText("Search");
-        txtfSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtSearch.setBackground(new java.awt.Color(245, 245, 245));
+        txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSearch.setText("Search");
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfSearchFocusLost(evt);
+                txtSearchFocusLost(evt);
             }
         });
-        txtfSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtfSearchMouseClicked(evt);
+                txtSearchMouseClicked(evt);
             }
         });
-        txtfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtfSearchKeyReleased(evt);
+                txtSearchKeyReleased(evt);
             }
         });
 
@@ -137,31 +138,31 @@ public class Manage_Fir extends WindowAction {
         lbDateOfOccurence.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbDateOfOccurence.setText("Date Of Occurence");
 
-        txtfLocation.setBackground(new java.awt.Color(220, 220, 220));
-        txtfLocation.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtLocation.setBackground(new java.awt.Color(220, 220, 220));
+        txtLocation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfLocationFocusLost(evt);
+                txtLocationFocusLost(evt);
             }
         });
 
-        txtfDescription.setBackground(new java.awt.Color(220, 220, 220));
-        txtfDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDescription.setBackground(new java.awt.Color(220, 220, 220));
+        txtDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfDescriptionFocusLost(evt);
+                txtDescriptionFocusLost(evt);
             }
         });
 
-        txtfSuspectName.setBackground(new java.awt.Color(220, 220, 220));
-        txtfSuspectName.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtSuspectName.setBackground(new java.awt.Color(220, 220, 220));
+        txtSuspectName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfSuspectNameFocusLost(evt);
+                txtSuspectNameFocusLost(evt);
             }
         });
 
-        txtfEvidence.setBackground(new java.awt.Color(220, 220, 220));
-        txtfEvidence.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtEvidence.setBackground(new java.awt.Color(220, 220, 220));
+        txtEvidence.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfEvidenceFocusLost(evt);
+                txtEvidenceFocusLost(evt);
             }
         });
 
@@ -235,9 +236,9 @@ public class Manage_Fir extends WindowAction {
                                 .addComponent(lbSuspectName)
                                 .addGap(18, 18, 18)))
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfSuspectName, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                            .addComponent(txtfDescription)
-                            .addComponent(txtfLocation))
+                            .addComponent(txtSuspectName, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtDescription)
+                            .addComponent(txtLocation))
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnControlFIRLayout.createSequentialGroup()
                                 .addGap(51, 51, 51)
@@ -246,7 +247,7 @@ public class Manage_Fir extends WindowAction {
                                     .addComponent(lbEvidence))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnControlFIRLayout.createSequentialGroup()
                                         .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(28, 28, 28)
@@ -280,7 +281,7 @@ public class Manage_Fir extends WindowAction {
                                 .addComponent(lbDescription))
                             .addGroup(pnControlFIRLayout.createSequentialGroup()
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtfLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbEvidence)
                                     .addGroup(pnControlFIRLayout.createSequentialGroup()
                                         .addComponent(lbDateOfOccurence)
@@ -291,14 +292,14 @@ public class Manage_Fir extends WindowAction {
                                             .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cbbYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(26, 26, 26)
-                                        .addComponent(txtfEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21)
-                                .addComponent(txtfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbSuspectName)
-                            .addComponent(txtfSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(140, 140, 140))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -319,43 +320,49 @@ public class Manage_Fir extends WindowAction {
             }
         });
 
+        btnReturn.setBackground(new java.awt.Color(220, 220, 220));
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbLogo)
-                        .addGap(188, 188, 188)
-                        .addComponent(lbManageFir)
-                        .addGap(0, 375, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnControlFIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
-                .addContainerGap())
+                .addComponent(btnReturn)
+                .addGap(384, 384, 384)
+                .addComponent(lbManageFir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addComponent(lbLogo))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnControlFIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbLogo)
-                        .addGap(0, 33, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbManageFir)))
-                .addGap(8, 8, 8)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbLogo)
+                                .addGap(0, 33, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lbManageFir)))
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnReturn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pnControlFIR, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -381,10 +388,10 @@ public class Manage_Fir extends WindowAction {
     private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
         int selectRow = tbFir.getSelectedRow();
 
-        String suspectName = txtfSuspectName.getText();
-        String location = txtfLocation.getText();
-        String description = txtfDescription.getText();
-        String evidence = txtfEvidence.getText();
+        String suspectName = txtSuspectName.getText();
+        String location = txtLocation.getText();
+        String description = txtDescription.getText();
+        String evidence = txtEvidence.getText();
 
         String dayStr = cbbDay.getSelectedItem().toString();
         String monthStr = cbbMonth.getSelectedItem().toString();
@@ -405,7 +412,7 @@ public class Manage_Fir extends WindowAction {
         date = LocalDate.of(year, month, day);
 
         try {
-            Statement staCreateFir = connFir.createStatement();
+            Statement staCreateFir = connCrimeFile.createStatement();
             ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 FirID FROM FIR ORDER BY FirID DESC");
 
             int maxFirID = 0;
@@ -416,7 +423,7 @@ public class Manage_Fir extends WindowAction {
 
             String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
 
-            PreparedStatement preCreateFir = connFir.prepareStatement("INSERT INTO FIR (FirID, SuspectName, Location, Description, DateOfOccurence, Evidence) VALUES (?,?,?,?,?,?)");
+            PreparedStatement preCreateFir = connCrimeFile.prepareStatement("INSERT INTO FIR (FirID, SuspectName, Location, Description, DateOfOccurence, Evidence) VALUES (?,?,?,?,?,?)");
             preCreateFir.setString(1, nextFirID);
             preCreateFir.setString(2, suspectName);
             preCreateFir.setString(3, location);
@@ -442,46 +449,46 @@ public class Manage_Fir extends WindowAction {
         }
     }//GEN-LAST:event_btnCreateMouseClicked
 
-    private void txtfSuspectNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfSuspectNameFocusLost
+    private void txtSuspectNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSuspectNameFocusLost
         JTextField textField = (JTextField) evt.getSource();
         if (textField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "SuspectName not empty !");
             textField.requestFocus();
         }
-    }//GEN-LAST:event_txtfSuspectNameFocusLost
+    }//GEN-LAST:event_txtSuspectNameFocusLost
 
-    private void txtfLocationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfLocationFocusLost
+    private void txtLocationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationFocusLost
         JTextField textField = (JTextField) evt.getSource();
         if (textField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Location not empty !");
             textField.requestFocus();
         }
-    }//GEN-LAST:event_txtfLocationFocusLost
+    }//GEN-LAST:event_txtLocationFocusLost
 
-    private void txtfDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfDescriptionFocusLost
+    private void txtDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescriptionFocusLost
         JTextField textField = (JTextField) evt.getSource();
         if (textField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Description not empty !");
             textField.requestFocus();
         }
-    }//GEN-LAST:event_txtfDescriptionFocusLost
+    }//GEN-LAST:event_txtDescriptionFocusLost
 
-    private void txtfEvidenceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfEvidenceFocusLost
+    private void txtEvidenceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEvidenceFocusLost
         JTextField textField = (JTextField) evt.getSource();
         if (textField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Evidence not empty !");
             textField.requestFocus();
         }
-    }//GEN-LAST:event_txtfEvidenceFocusLost
+    }//GEN-LAST:event_txtEvidenceFocusLost
 
     private void tbFirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFirMouseClicked
         DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
         int selectIndex = tbFir.getSelectedRow();
-        txtfSuspectName.setText(model.getValueAt(selectIndex, 1).toString());
-        txtfLocation.setText(model.getValueAt(selectIndex, 2).toString());
-        txtfDescription.setText(model.getValueAt(selectIndex, 3).toString());
+        txtSuspectName.setText(model.getValueAt(selectIndex, 1).toString());
+        txtLocation.setText(model.getValueAt(selectIndex, 2).toString());
+        txtDescription.setText(model.getValueAt(selectIndex, 3).toString());
         java.sql.Date dateValue = (java.sql.Date) model.getValueAt(selectIndex, 4);
-        txtfEvidence.setText(model.getValueAt(selectIndex, 5).toString());
+        txtEvidence.setText(model.getValueAt(selectIndex, 5).toString());
 
         LocalDate localDate = dateValue.toLocalDate();
 
@@ -500,10 +507,10 @@ public class Manage_Fir extends WindowAction {
         if (confirmResult == JOptionPane.YES_OPTION) {
             int selectRow = tbFir.getSelectedRow();
             String firID = tbFir.getValueAt(selectRow, 0).toString();
-            String suspectName = txtfSuspectName.getText();
-            String location = txtfLocation.getText();
-            String description = txtfDescription.getText();
-            String evidence = txtfEvidence.getText();
+            String suspectName = txtSuspectName.getText();
+            String location = txtLocation.getText();
+            String description = txtDescription.getText();
+            String evidence = txtEvidence.getText();
 
             String dayStr = cbbDay.getSelectedItem().toString();
             String monthStr = cbbMonth.getSelectedItem().toString();
@@ -524,7 +531,7 @@ public class Manage_Fir extends WindowAction {
             date = LocalDate.of(year, month, day);
 
             try {
-                Statement staCreateFir = connFir.createStatement();
+                Statement staCreateFir = connCrimeFile.createStatement();
                 ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 FirID FROM FIR ORDER BY FirID DESC");
 
                 int maxFirID = 0;
@@ -535,7 +542,7 @@ public class Manage_Fir extends WindowAction {
 
                 String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
 
-                PreparedStatement preUpdateFir = connFir.prepareStatement("Update FIR Set SuspectName = ?, Location = ?, "
+                PreparedStatement preUpdateFir = connCrimeFile.prepareStatement("Update FIR Set SuspectName = ?, Location = ?, "
                                + "Description = ?, DateOfOccurence = ?, Evidence = ? WHERE FirID = ?");
                 preUpdateFir.setString(1, suspectName);
                 preUpdateFir.setString(2, location);
@@ -578,12 +585,13 @@ public class Manage_Fir extends WindowAction {
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
-    private void txtfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfSearchKeyReleased
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         arrFir.clear();
         try {
-            String searchEnter = txtfSearch.getText();
-            String sqlSearch = "Select * From FIR Where FirID Like ? Or SuspectName Like ? Or Location Like ? Or Description Like ? Or Evidence Like ?";
-            PreparedStatement preSearch = connFir.prepareStatement(sqlSearch);
+            String searchEnter = txtSearch.getText();
+            String sqlSearch = "Select FirID, SuspectName, Location, Description, DateOfOccurence, Evidence, AdminID From FIR Where FirID Like ? Or SuspectName Like ? "
+                           + "Or Location Like ? Or Description Like ? Or Evidence Like ?";
+            PreparedStatement preSearch = connCrimeFile.prepareStatement(sqlSearch);
             preSearch.setString(1, "%" + searchEnter + "%");
             preSearch.setString(2, "%" + searchEnter + "%");
             preSearch.setString(3, "%" + searchEnter + "%");
@@ -599,29 +607,29 @@ public class Manage_Fir extends WindowAction {
                 String evidence = rsSearch.getString("Evidence");
                 String adminID = rsSearch.getString("AdminID");
 
-                Fir firTable = new Fir(firID, suspectName, location, description, dateOfOccurence, evidence, adminID);
+                Fir firTable = new Fir(firID, suspectName, location, description, dateOfOccurence, evidence, adminID, "", 0, ' ', "", "", "");
                 arrFir.add(firTable);
             }
             loadDataArrayListToTable();
         } catch (SQLException e) {
             System.out.println("Error search " + e);
         }
-    }//GEN-LAST:event_txtfSearchKeyReleased
+    }//GEN-LAST:event_txtSearchKeyReleased
 
-    private void txtfSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfSearchMouseClicked
-        txtfSearch.setText("");
-    }//GEN-LAST:event_txtfSearchMouseClicked
+    private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
+        txtSearch.setText("");
+    }//GEN-LAST:event_txtSearchMouseClicked
 
-    private void txtfSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfSearchFocusLost
-        txtfSearch.setText("Search ...");
-    }//GEN-LAST:event_txtfSearchFocusLost
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        txtSearch.setText("Search ...");
+    }//GEN-LAST:event_txtSearchFocusLost
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
 
-        txtfSuspectName.setText("");
-        txtfLocation.setText("");
-        txtfDescription.setText("");
-        txtfEvidence.setText("");
+        txtSuspectName.setText("");
+        txtLocation.setText("");
+        txtDescription.setText("");
+        txtEvidence.setText("");
         cbbDay.setSelectedItem(1);
         cbbMonth.setSelectedItem(1);
         cbbYear.setSelectedItem(2023);
@@ -672,6 +680,7 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbbDay;
     private javax.swing.JComboBox<String> cbbMonth;
@@ -688,17 +697,17 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JLabel lbSuspectName;
     private javax.swing.JPanel pnControlFIR;
     private static javax.swing.JTable tbFir;
-    private javax.swing.JTextField txtfDescription;
-    private javax.swing.JTextField txtfEvidence;
-    private javax.swing.JTextField txtfLocation;
-    private javax.swing.JTextField txtfSearch;
-    private javax.swing.JTextField txtfSuspectName;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtEvidence;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtSuspectName;
     // End of variables declaration//GEN-END:variables
 
     private void dataArrayListFromFir() {
         arrFir.clear();
         try {
-            Statement staFir = connFir.createStatement();
+            Statement staFir = connCrimeFile.createStatement();
             ResultSet rsFir = staFir.executeQuery("SELECT FirID, SuspectName, Location, Description, DateOfOccurence, Evidence, AdminID FROM FIR");
             System.out.println("FirID\tSuspectName\tLocation\tDescription\tDateOfOccurence\tEvidence\tAdminID");
             while (rsFir.next()) {
@@ -710,7 +719,7 @@ public class Manage_Fir extends WindowAction {
                 String evidence = rsFir.getString("Evidence");
                 String adminID = rsFir.getString("AdminID");
 
-                Fir firTable = new Fir(firID, suspectName, location, description, dateOfOccurence, evidence, adminID);
+                Fir firTable = new Fir(firID, suspectName, location, description, dateOfOccurence, evidence, adminID, "", 0, ' ', "", "", "");
                 arrFir.add(firTable);
             }
         } catch (SQLException e) {
@@ -731,7 +740,7 @@ public class Manage_Fir extends WindowAction {
         int rows = 0;
         try {
             String sqlDelete = "Delete From FIR Where FirID = ?";
-            PreparedStatement preDelete = connFir.prepareStatement(sqlDelete);
+            PreparedStatement preDelete = connCrimeFile.prepareStatement(sqlDelete);
             preDelete.setString(1, idColumnDelete);
             rows = preDelete.executeUpdate();
             if (rows >= 1) {

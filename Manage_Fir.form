@@ -53,27 +53,23 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="384" max="-2" attributes="0"/>
+                  <Component id="lbManageFir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="131" max="32767" attributes="0"/>
+                  <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
-                          <Component id="lbManageFir" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="375" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="pnControlFIR" alignment="1" pref="1068" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="pnControlFIR" alignment="1" pref="1068" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtSearch" min="-2" pref="338" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtfSearch" min="-2" pref="338" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,19 +78,27 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="lbManageFir" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="lbManageFir" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="txtfSearch" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="txtSearch" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="265" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="pnControlFIR" min="-2" pref="234" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -109,7 +113,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtfSearch">
+        <Component class="javax.swing.JTextField" name="txtSearch">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f5" green="f5" red="f5" type="rgb"/>
@@ -120,9 +124,9 @@
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfSearchFocusLost"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtfSearchMouseClicked"/>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtfSearchKeyReleased"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusLost"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseClicked"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -240,9 +244,9 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtfSuspectName" pref="240" max="32767" attributes="0"/>
-                                  <Component id="txtfDescription" max="32767" attributes="0"/>
-                                  <Component id="txtfLocation" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtSuspectName" pref="240" max="32767" attributes="0"/>
+                                  <Component id="txtDescription" max="32767" attributes="0"/>
+                                  <Component id="txtLocation" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -253,7 +257,7 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtfEvidence" min="-2" pref="240" max="-2" attributes="0"/>
+                                          <Component id="txtEvidence" min="-2" pref="240" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="cbbDay" min="-2" pref="60" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -299,7 +303,7 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="txtfLocation" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="txtLocation" min="-2" pref="31" max="-2" attributes="0"/>
                                           <Component id="lbEvidence" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="lbDateOfOccurence" min="-2" max="-2" attributes="0"/>
@@ -312,11 +316,11 @@
                                                   <Component id="cbbYear" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                              <Component id="txtfEvidence" min="-2" pref="31" max="-2" attributes="0"/>
+                                              <Component id="txtEvidence" min="-2" pref="31" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Component id="txtfDescription" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtDescription" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -324,7 +328,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="lbSuspectName" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtfSuspectName" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="txtSuspectName" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
@@ -393,44 +397,44 @@
                 <Property name="text" type="java.lang.String" value="Date Of Occurence"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfLocation">
+            <Component class="javax.swing.JTextField" name="txtLocation">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfLocationFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtLocationFocusLost"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfDescription">
+            <Component class="javax.swing.JTextField" name="txtDescription">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfDescriptionFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescriptionFocusLost"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfSuspectName">
+            <Component class="javax.swing.JTextField" name="txtSuspectName">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfSuspectNameFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSuspectNameFocusLost"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfEvidence">
+            <Component class="javax.swing.JTextField" name="txtEvidence">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtfEvidenceFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEvidenceFocusLost"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCreate">
@@ -627,6 +631,16 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbLogoMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnReturn">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="dc" green="dc" red="dc" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/button/btn_return.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
