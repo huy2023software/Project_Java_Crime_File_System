@@ -57,10 +57,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="txtfSearch" min="-2" pref="338" max="-2" attributes="0"/>
+                          <Component id="txtSearch" min="-2" pref="338" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="722" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="pnControlFIR" alignment="0" pref="1060" max="32767" attributes="0"/>
+                      <Component id="pnControlFIR" alignment="0" pref="1068" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -68,7 +68,7 @@
                   <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="331" max="-2" attributes="0"/>
                   <Component id="lbLogoManagePrisoner" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="123" max="32767" attributes="0"/>
                   <Component id="lbLogo" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -95,7 +95,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="txtfSearch" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="txtSearch" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="265" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -111,6 +111,9 @@
               <Image iconType="3" name="/images/logo/logo.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbLogoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbLogoManagePrisoner">
           <Properties>
@@ -119,15 +122,20 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtfSearch">
+        <Component class="javax.swing.JTextField" name="txtSearch">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Search"/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="99" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Search..."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfSearchActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusLost"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseClicked"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -137,7 +145,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tbFir">
+            <Component class="javax.swing.JTable" name="tbPrisoner">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -196,6 +204,12 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbPrisonerMouseClicked"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -226,9 +240,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtfAge" alignment="0" pref="240" max="32767" attributes="0"/>
-                          <Component id="cbGender" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="txtfFullName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtAge" alignment="0" pref="240" max="32767" attributes="0"/>
+                          <Component id="cbbGender" min="-2" pref="104" max="-2" attributes="0"/>
+                          <Component id="txtFullName" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -238,9 +252,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txtfPrisonerTerm" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbCrimeType" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
-                          <Component id="cbStatus" max="32767" attributes="0"/>
+                          <Component id="txtPrisonTerm" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbbCrimeType" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
+                          <Component id="cbbStatus" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -258,7 +272,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnCreate" min="-2" pref="23" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="btnUpdate" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDelete" min="-2" pref="31" max="-2" attributes="0"/>
@@ -269,17 +283,17 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbControlPrisoner" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace pref="46" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="lbFullName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtfFullName" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="txtFullName" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="lbAge" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtfAge" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="txtAge" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="lbPrisonerTerm" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -288,19 +302,19 @@
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="cbCrimeType" max="32767" attributes="0"/>
+                                      <Component id="cbbCrimeType" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="txtfPrisonerTerm" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="txtPrisonTerm" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cbGender" pref="31" max="32767" attributes="0"/>
+                          <Component id="cbbGender" pref="31" max="32767" attributes="0"/>
                           <Component id="lbGender" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lbStatus" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbStatus" alignment="1" max="32767" attributes="0"/>
+                          <Component id="cbbStatus" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
@@ -345,7 +359,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Prisoner Term"/>
+                <Property name="text" type="java.lang.String" value="Prison Term"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbCrimeType">
@@ -356,28 +370,37 @@
                 <Property name="text" type="java.lang.String" value="Crime Type"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtfAge">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="dc" green="dc" red="dc" type="rgb"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfFullName">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="dc" green="dc" red="dc" type="rgb"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfPrisonerTerm">
+            <Component class="javax.swing.JTextField" name="txtAge">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfPrisonerTermActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtAgeFocusLost"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtFullName">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="dc" green="dc" red="dc" type="rgb"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtFullNameFocusLost"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtPrisonTerm">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="dc" green="dc" red="dc" type="rgb"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrisonTermFocusLost"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCreate">
@@ -395,6 +418,9 @@
                   <Dimension value="[95, 31]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCreateMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdate">
               <Properties>
@@ -409,7 +435,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnUpdateMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnDelete">
@@ -425,7 +451,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDeleteMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnReset">
@@ -441,7 +467,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnResetMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbStatus">
@@ -452,7 +478,7 @@
                 <Property name="text" type="java.lang.String" value="Status"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbCrimeType">
+            <Component class="javax.swing.JComboBox" name="cbbCrimeType">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
@@ -468,7 +494,7 @@
                     <StringItem index="3" value="Cyber Crime"/>
                     <StringItem index="4" value="Drug Trafficking"/>
                     <StringItem index="5" value="Environmental Crime"/>
-                    <StringItem index="6" value="Financial Crime&#x9;"/>
+                    <StringItem index="6" value="Financial Crime"/>
                     <StringItem index="7" value="Firearms Trafficking"/>
                     <StringItem index="8" value="Human Trafficking"/>
                     <StringItem index="9" value="Illcit Goods"/>
@@ -481,7 +507,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbStatus">
+            <Component class="javax.swing.JComboBox" name="cbbStatus">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
@@ -500,7 +526,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbGender">
+            <Component class="javax.swing.JComboBox" name="cbbGender">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="dc" red="dc" type="rgb"/>
@@ -527,6 +553,9 @@
               <Image iconType="3" name="/images/button/btn_return.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReturnMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
