@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package frame.fir;
 
 import frame.fir.Manage_Fir;
 import frame.background_processing.WindowAction;
 import frame.home.Home_Admin;
-import mainconnection.MainConnection;
+import java.awt.Color;
+import connection.MainConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -83,7 +80,8 @@ public class Manage_Fir extends WindowAction {
 
         txtSearch.setBackground(new java.awt.Color(245, 245, 245));
         txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtSearch.setText("Search");
+        txtSearch.setForeground(new java.awt.Color(153, 153, 153));
+        txtSearch.setText("Search...");
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
@@ -166,7 +164,7 @@ public class Manage_Fir extends WindowAction {
             }
         });
 
-        btnCreate.setBackground(new java.awt.Color(51, 153, 0));
+        btnCreate.setBackground(new java.awt.Color(51, 102, 0));
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
         btnCreate.setMaximumSize(new java.awt.Dimension(95, 31));
@@ -174,6 +172,11 @@ public class Manage_Fir extends WindowAction {
         btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCreateMouseClicked(evt);
+            }
+        });
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
             }
         });
 
@@ -303,7 +306,7 @@ public class Manage_Fir extends WindowAction {
                         .addGap(140, 140, 140))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -440,15 +443,8 @@ public class Manage_Fir extends WindowAction {
             rsCreateFir.close();
             preCreateFir.close();
             JOptionPane.showMessageDialog(null, "Create successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-            DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
-            model.setValueAt(suspectName, selectRow, 1);
-            model.setValueAt(location, selectRow, 2);
-            model.setValueAt(description, selectRow, 3);
-            model.setValueAt(date, selectRow, 4);
-            model.setValueAt(evidence, selectRow, 5);
-
-            tbFir.setModel(model);
+            dataArrayListFromFir();
+            loadDataArrayListToTable();
         } catch (SQLException ex) {
             System.out.println("Error create " + ex);
         }
@@ -536,12 +532,12 @@ public class Manage_Fir extends WindowAction {
             date = LocalDate.of(year, month, day);
 
             try {
-                Statement staCreateFir = connCrimeFile.createStatement();
-                ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 FirID FROM FIR ORDER BY FirID DESC");
+                Statement staUpdateFir = connCrimeFile.createStatement();
+                ResultSet rsUpdateFir = staUpdateFir.executeQuery("SELECT TOP 1 FirID FROM FIR ORDER BY FirID DESC");
 
                 int maxFirID = 0;
-                if (rsCreateFir.next()) {
-                    String maxFirIDStr = rsCreateFir.getString("FirID");
+                if (rsUpdateFir.next()) {
+                    String maxFirIDStr = rsUpdateFir.getString("FirID");
                     maxFirID = Integer.parseInt(maxFirIDStr.substring(3));
                 }
 
@@ -557,18 +553,11 @@ public class Manage_Fir extends WindowAction {
                 preUpdateFir.setString(6, firID);
                 preUpdateFir.executeUpdate();
 
-                rsCreateFir.close();
+                rsUpdateFir.close();
                 preUpdateFir.close();
                 JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                DefaultTableModel model = (DefaultTableModel) tbFir.getModel();
-                model.setValueAt(suspectName, selectRow, 1);
-                model.setValueAt(location, selectRow, 2);
-                model.setValueAt(description, selectRow, 3);
-                model.setValueAt(date, selectRow, 4);
-                model.setValueAt(evidence, selectRow, 5);
-
-                tbFir.setModel(model);
+                dataArrayListFromFir();
+                loadDataArrayListToTable();
             } catch (SQLException ex) {
                 System.out.println("Error create " + ex);
             }
@@ -622,11 +611,16 @@ public class Manage_Fir extends WindowAction {
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
+
+        Color textForeground = Color.BLACK; 
         txtSearch.setText("");
+        txtSearch.setForeground(textForeground);
     }//GEN-LAST:event_txtSearchMouseClicked
 
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        Color placeholderForeground = new Color(153, 153, 153); 
         txtSearch.setText("Search ...");
+        txtSearch.setForeground(placeholderForeground);
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
@@ -651,6 +645,10 @@ public class Manage_Fir extends WindowAction {
         homeAdmin.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnMouseClicked
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments
