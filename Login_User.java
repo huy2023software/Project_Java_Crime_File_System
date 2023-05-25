@@ -4,9 +4,20 @@
  */
 package frame.login;
 
+import connection.MainConnection;
 import frame.background_processing.WindowAction;
 import frame.home.Home_Guest;
+import frame.home.Home_User;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -45,6 +56,7 @@ public class Login_User extends WindowAction {
         btnReturn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Login As User");
 
         panel.setBackground(new java.awt.Color(220, 220, 220));
         panel.setPreferredSize(new java.awt.Dimension(1080, 660));
@@ -81,11 +93,6 @@ public class Login_User extends WindowAction {
         });
 
         txtUsername.setBackground(new java.awt.Color(204, 204, 204));
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
 
         txtPassword.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -94,6 +101,11 @@ public class Login_User extends WindowAction {
 
         lbSignUp.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lbSignUp.setText("<html><u>SIGN UP</u></html>");
+        lbSignUp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbSignUpMouseClicked(evt);
+            }
+        });
 
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
         btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,22 +205,61 @@ public class Login_User extends WindowAction {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
+        try {
+            String usernameStr = txtUsername.getText();
+            String passwordStr = new String(txtPassword.getPassword());
+            
+            PreparedStatement preparedStatement = MainConnection.getConnection()
+                    .prepareStatement("select Username, Password from Users");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            boolean isUser = false;
+            while (resultSet.next()) {
+                if (usernameStr.equalsIgnoreCase(resultSet.getString("Username")) 
+                        && passwordStr.equalsIgnoreCase(resultSet.getString("Password")))
+                    isUser = true;
+            }
+            
+            if (isUser) {
+                JOptionPane.showMessageDialog(this, 
+                        "Login successfully with username " + usernameStr + "!", 
+                        "Login Successful!", JOptionPane.INFORMATION_MESSAGE, 
+                        new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+                setVisible(false);
+                JFrame frame = new Home_User();
+                frame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                        "Invalid username or password, please try again later", 
+                        "Error", JOptionPane.ERROR_MESSAGE, 
+                        new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+                txtUsername.requestFocus();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        JTextField[] arrTxt = {txtUsername, txtPassword};
         
+        List<JTextField> listTxt = new ArrayList<>();
+        listTxt.addAll(Arrays.asList(arrTxt));
+        
+        listTxt.forEach(txt -> txt.setText(""));
     }//GEN-LAST:event_btnResetActionPerformed
-
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        
-    }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
         setVisible(false);
         JFrame frame = new Home_Guest();
         frame.setVisible(true);
     }//GEN-LAST:event_btnReturnMouseClicked
+
+    private void lbSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignUpMouseClicked
+        setVisible(false);
+        JFrame frame = new Create_Account_User();
+        frame.setVisible(true);
+    }//GEN-LAST:event_lbSignUpMouseClicked
 
     /**
      * @param args the command line arguments

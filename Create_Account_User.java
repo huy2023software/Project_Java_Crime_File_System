@@ -1,10 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package frame.login;
 
+import connection.MainConnection;
 import frame.background_processing.WindowAction;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -12,11 +20,21 @@ import frame.background_processing.WindowAction;
  */
 public class Create_Account_User extends WindowAction {
 
+    static Connection connection = MainConnection.getConnection();
+    static boolean isUsernameValid, isPasswordValid, isConfirmPasswordValid;
+
     /**
      * Creates new form Create_Account_User
      */
     public Create_Account_User() {
         initComponents();
+    }
+
+    public ResultSet queryResults() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("select Username, Fullname, Age, Gender, Address, Tel, Password from Users");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
     }
 
     /**
@@ -31,23 +49,25 @@ public class Create_Account_User extends WindowAction {
         panel = new javax.swing.JPanel();
         lbLogoCrimeFile = new javax.swing.JLabel();
         lbLogoCreateAccount = new javax.swing.JLabel();
-        lbFirstName = new javax.swing.JLabel();
-        lbLastName = new javax.swing.JLabel();
+        lbFullName = new javax.swing.JLabel();
         lbUsername = new javax.swing.JLabel();
         lbPassword = new javax.swing.JLabel();
         lbConfirmPassword = new javax.swing.JLabel();
-        lbEmail = new javax.swing.JLabel();
+        lbAddress = new javax.swing.JLabel();
         lbNumberPhone = new javax.swing.JLabel();
-        txtfPassword = new javax.swing.JPasswordField();
-        txtfConfirmPassword = new javax.swing.JPasswordField();
-        txtfLastName = new javax.swing.JTextField();
-        txtfEmail = new javax.swing.JTextField();
-        txtfUsername = new javax.swing.JTextField();
-        txtfFirstName = new javax.swing.JTextField();
-        txtfNumberPhone = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtConfirmPassword = new javax.swing.JPasswordField();
+        txtFullName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
+        txtNumberPhone = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnReturn = new javax.swing.JLabel();
+        lbAge = new javax.swing.JLabel();
+        txtAge = new javax.swing.JTextField();
+        lbGender = new javax.swing.JLabel();
+        cbbGender = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Create User Account");
@@ -59,14 +79,11 @@ public class Create_Account_User extends WindowAction {
 
         lbLogoCreateAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_create_account.png"))); // NOI18N
 
-        lbFirstName.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lbFirstName.setText("First name ");
-
-        lbLastName.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lbLastName.setText("Last name ");
+        lbFullName.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lbFullName.setText("Fullname ");
 
         lbUsername.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lbUsername.setText("User name");
+        lbUsername.setText("Username");
 
         lbPassword.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbPassword.setText("Password");
@@ -74,50 +91,38 @@ public class Create_Account_User extends WindowAction {
         lbConfirmPassword.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbConfirmPassword.setText("Confirm password");
 
-        lbEmail.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lbEmail.setText("Email");
+        lbAddress.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lbAddress.setText("Address");
 
         lbNumberPhone.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbNumberPhone.setText("Number phone");
 
-        txtfPassword.setBackground(new java.awt.Color(204, 204, 204));
-
-        txtfConfirmPassword.setBackground(new java.awt.Color(204, 204, 204));
-
-        txtfLastName.setBackground(new java.awt.Color(204, 204, 204));
-        txtfLastName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfLastNameActionPerformed(evt);
+        txtPassword.setBackground(new java.awt.Color(204, 204, 204));
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
             }
         });
 
-        txtfEmail.setBackground(new java.awt.Color(204, 204, 204));
-        txtfEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfEmailActionPerformed(evt);
+        txtConfirmPassword.setBackground(new java.awt.Color(204, 204, 204));
+        txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConfirmPasswordFocusLost(evt);
             }
         });
 
-        txtfUsername.setBackground(new java.awt.Color(204, 204, 204));
-        txtfUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfUsernameActionPerformed(evt);
+        txtFullName.setBackground(new java.awt.Color(204, 204, 204));
+
+        txtAddress.setBackground(new java.awt.Color(204, 204, 204));
+
+        txtUsername.setBackground(new java.awt.Color(204, 204, 204));
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsernameFocusLost(evt);
             }
         });
 
-        txtfFirstName.setBackground(new java.awt.Color(204, 204, 204));
-        txtfFirstName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfFirstNameActionPerformed(evt);
-            }
-        });
-
-        txtfNumberPhone.setBackground(new java.awt.Color(204, 204, 204));
-        txtfNumberPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfNumberPhoneActionPerformed(evt);
-            }
-        });
+        txtNumberPhone.setBackground(new java.awt.Color(204, 204, 204));
 
         btnRegister.setBackground(new java.awt.Color(204, 255, 255));
         btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/register_button.png"))); // NOI18N
@@ -137,16 +142,43 @@ public class Create_Account_User extends WindowAction {
         });
 
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
+
+        lbAge.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lbAge.setText("Age");
+
+        txtAge.setBackground(new java.awt.Color(204, 204, 204));
+
+        lbGender.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lbGender.setText("Gender");
+
+        cbbGender.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male\t", "Female" }));
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addComponent(btnReturn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbLogoCrimeFile))
             .addGroup(panelLayout.createSequentialGroup()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(262, 262, 262)
+                        .addGap(398, 398, 398)
+                        .addComponent(lbLogoCreateAccount))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(261, 261, 261)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createSequentialGroup()
+                                .addComponent(lbFullName)
+                                .addGap(92, 92, 92)
+                                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,35 +190,31 @@ public class Create_Account_User extends WindowAction {
                                             .addGap(18, 18, 18)))
                                     .addGroup(panelLayout.createSequentialGroup()
                                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lbLastName)
-                                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lbEmail)
-                                                    .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lbUsername)))
-                                            .addComponent(lbFirstName))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                            .addComponent(lbAddress)
+                                            .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(8, 8, 8)))
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelLayout.createSequentialGroup()
-                                .addGap(166, 166, 166)
-                                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbUsername)
+                                    .addComponent(lbGender)
+                                    .addComponent(lbAge))
+                                .addGap(88, 88, 88)
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtAge, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbbGender, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(398, 398, 398)
-                        .addComponent(lbLogoCreateAccount)))
-                .addContainerGap(325, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addComponent(btnReturn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbLogoCrimeFile))
+                        .addGap(369, 369, 369)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,42 +224,43 @@ public class Create_Account_User extends WindowAction {
                     .addComponent(btnReturn))
                 .addGap(59, 59, 59)
                 .addComponent(lbLogoCreateAccount)
-                .addGap(49, 49, 49)
+                .addGap(36, 36, 36)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFullName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbAge)
+                    .addComponent(txtAge))
+                .addGap(18, 18, 18)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbGender)
+                    .addComponent(cbbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbUsername, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(400, 400, 400)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbFirstName)
-                            .addComponent(txtfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbLastName, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbUsername, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbPassword)
-                            .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbEmail)
-                            .addComponent(txtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+                    .addComponent(lbPassword)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(26, 26, 26)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbAddress)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(28, 28, 28)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegister, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,33 +281,117 @@ public class Create_Account_User extends WindowAction {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfLastNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfLastNameActionPerformed
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        setVisible(false);
+        JFrame frame = new Login_User();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnReturnMouseClicked
 
-    private void txtfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfEmailActionPerformed
+    private void txtUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusLost
+        try {
+            String usernameStr = txtUsername.getText();
 
-    private void txtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfUsernameActionPerformed
+            ResultSet resultSet = queryResults();
+            while (resultSet.next()) {
+                if (usernameStr.equalsIgnoreCase(resultSet.getString("Username"))) {
+                    isUsernameValid = false;
+                    JOptionPane.showMessageDialog(new Create_Account_User(), "Username already exist",
+                            "Error", JOptionPane.ERROR_MESSAGE,
+                            new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+                    txtUsername.requestFocus();
+                } else 
+                    isUsernameValid = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_txtUsernameFocusLost
 
-    private void txtfFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfFirstNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfFirstNameActionPerformed
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        String passwordStr = new String(txtPassword.getPassword());
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
 
-    private void txtfNumberPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfNumberPhoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfNumberPhoneActionPerformed
+        if (!passwordStr.matches(passwordRegex)) {
+            isPasswordValid = false;
+            JOptionPane.showMessageDialog(this,
+                    "Password length required more than 8 character,\nmust have at least one uppercase, lowercase, digit",
+                    "Error", JOptionPane.ERROR_MESSAGE,
+                    new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+            txtPassword.requestFocus();
+        } else 
+            isPasswordValid = true;
+    }//GEN-LAST:event_txtPasswordFocusLost
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
+    private void txtConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPasswordFocusLost
+        String passwordStr = new String(txtPassword.getPassword());
+        String confirmPasswordStr = new String(txtConfirmPassword.getPassword());
+        
+        if (!passwordStr.equalsIgnoreCase(confirmPasswordStr)) {
+            isConfirmPasswordValid = false;
+            JOptionPane.showMessageDialog(this, "Confirm password don't match with password",
+                    "Error", JOptionPane.ERROR_MESSAGE,
+                    new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+            txtConfirmPassword.requestFocus();
+        } else 
+            isConfirmPasswordValid = true;
+    }//GEN-LAST:event_txtConfirmPasswordFocusLost
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
+        JTextField[] arrTxt = {txtFullName, txtUsername, txtAge, txtPassword, 
+            txtConfirmPassword, txtAddress, txtNumberPhone};
+        
+        List<JTextField> listTxt = new ArrayList<>();
+        listTxt.addAll(Arrays.asList(arrTxt));
+        
+        boolean isEmpty = listTxt.stream().anyMatch(txt -> txt.getText().equalsIgnoreCase(""));
+        if (isEmpty)
+            JOptionPane.showMessageDialog(this, 
+                    "All field must be filled in", "Error",
+                    JOptionPane.ERROR_MESSAGE, 
+                    new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+        if (isUsernameValid && isPasswordValid && isConfirmPasswordValid) {
+            try {
+                PreparedStatement preparedStatement = connection
+                        .prepareStatement("insert Users values(?, ?, ?, ?, ?, ?, ?)");
+                
+                preparedStatement.setString(1, txtUsername.getText());
+                preparedStatement.setString(2, txtFullName.getText());
+                preparedStatement.setInt(3, Integer.parseInt(txtAge.getText()));
+                
+                // Handle for combo box 
+                String gender = (cbbGender.getSelectedItem().toString()
+                        .equalsIgnoreCase("Male")) ? "M" : "F";
+                preparedStatement.setString(4, gender);
+                
+                preparedStatement.setString(5, txtAddress.getText());
+                preparedStatement.setString(6, txtNumberPhone.getText());
+                preparedStatement.setString(7, new String(txtPassword.getPassword()));
+                
+                preparedStatement.executeUpdate();
+                
+                JOptionPane.showMessageDialog(this, 
+                        "Create account with username " + txtUsername.getText() + " successfully!",
+                        "Create account successfully", JOptionPane.INFORMATION_MESSAGE, 
+                        new ImageIcon(getClass().getResource("/images/logo/logo.png")));
+                
+                setVisible(false);
+                JFrame frame = new Login_User();
+                frame.setVisible(true);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        JTextField[] arrTxt = {txtFullName, txtUsername, txtAge, txtPassword, 
+            txtConfirmPassword, txtAddress, txtNumberPhone};
+        
+        List<JTextField> listTxt = new ArrayList<>();
+        listTxt.addAll(Arrays.asList(arrTxt));
+        
+        listTxt.forEach(txt -> txt.setText(""));
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,7 +413,7 @@ public class Create_Account_User extends WindowAction {
             java.util.logging.Logger.getLogger(Create_Account_User.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -315,22 +428,24 @@ public class Create_Account_User extends WindowAction {
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel btnReturn;
+    private javax.swing.JComboBox<String> cbbGender;
+    private javax.swing.JLabel lbAddress;
+    private javax.swing.JLabel lbAge;
     private javax.swing.JLabel lbConfirmPassword;
-    private javax.swing.JLabel lbEmail;
-    private javax.swing.JLabel lbFirstName;
-    private javax.swing.JLabel lbLastName;
+    private javax.swing.JLabel lbFullName;
+    private javax.swing.JLabel lbGender;
     private javax.swing.JLabel lbLogoCreateAccount;
     private javax.swing.JLabel lbLogoCrimeFile;
     private javax.swing.JLabel lbNumberPhone;
     private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbUsername;
     private javax.swing.JPanel panel;
-    private javax.swing.JPasswordField txtfConfirmPassword;
-    private javax.swing.JTextField txtfEmail;
-    private javax.swing.JTextField txtfFirstName;
-    private javax.swing.JTextField txtfLastName;
-    private javax.swing.JTextField txtfNumberPhone;
-    private javax.swing.JPasswordField txtfPassword;
-    private javax.swing.JTextField txtfUsername;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JPasswordField txtConfirmPassword;
+    private javax.swing.JTextField txtFullName;
+    private javax.swing.JTextField txtNumberPhone;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
