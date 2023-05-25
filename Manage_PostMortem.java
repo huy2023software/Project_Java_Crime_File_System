@@ -6,6 +6,7 @@ package frame.postmortem;
 
 import frame.background_processing.WindowAction;
 import frame.home.Home_Admin;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import mainconnection.MainConnection;
+import connection.MainConnection;
 import object.PostMortem;
 
 /**
@@ -280,7 +281,8 @@ public class Manage_PostMortem extends WindowAction {
         jScrollPane1.setViewportView(tbPostMortem);
 
         txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtSearch.setText("Search");
+        txtSearch.setForeground(new java.awt.Color(153, 153, 153));
+        txtSearch.setText("Search...");
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
@@ -401,7 +403,7 @@ public class Manage_PostMortem extends WindowAction {
                 maxPostMortemID = Integer.parseInt(maxPostMortemIDStr.substring(3));
             }
 
-            String nextPostMortemID = "Pmt" + String.format("%03d", maxPostMortemID + 1);
+            String nextPostMortemID = "Pos" + String.format("%03d", maxPostMortemID + 1);
 
             PreparedStatement preCreatePostMortem = connCrimeFile.prepareStatement("INSERT INTO PostMortem (PostMortemID, Location, DateOfDeath, CauseOfDeath,"
                            + " Evidence, DoctorName) VALUES (?,?,?,?,?,?)");
@@ -475,11 +477,15 @@ public class Manage_PostMortem extends WindowAction {
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
-        txtSearch.setText("Search");
+        Color placeholderForeground = new Color(153, 153, 153); 
+        txtSearch.setText("Search ...");
+        txtSearch.setForeground(placeholderForeground);
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
+        Color textForeground = Color.BLACK;
         txtSearch.setText("");
+        txtSearch.setForeground(textForeground);
     }//GEN-LAST:event_txtSearchMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
@@ -546,13 +552,13 @@ public class Manage_PostMortem extends WindowAction {
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
-         int confirmResult = JOptionPane.showConfirmDialog(null, "You sure want to update ?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+        int confirmResult = JOptionPane.showConfirmDialog(null, "You sure want to update ?", "Confirm Update", JOptionPane.YES_NO_OPTION);
 
         if (confirmResult == JOptionPane.YES_OPTION) {
             int selectRow = tbPostMortem.getSelectedRow();
-            String firID = tbPostMortem.getValueAt(selectRow, 0).toString();
+            String postmortemID = tbPostMortem.getValueAt(selectRow, 0).toString();
             String location = txtLocation.getText();
-            String  causeOfDeath= txtCauseOdDeath.getText();
+            String causeOfDeath = txtCauseOdDeath.getText();
             String evidence = txtEvidence.getText();
             String doctorName = txtDoctorName.getText();
 
@@ -575,39 +581,32 @@ public class Manage_PostMortem extends WindowAction {
             date = LocalDate.of(year, month, day);
 
             try {
-                Statement staCreateFir = connCrimeFile.createStatement();
-                ResultSet rsCreateFir = staCreateFir.executeQuery("SELECT TOP 1 PostMortemID FROM PostMortem ORDER BY PostMortemID DESC");
+                Statement staUpdateFir = connCrimeFile.createStatement();
+                ResultSet rsUpdateFir = staUpdateFir.executeQuery("SELECT TOP 1 PostMortemID FROM PostMortem ORDER BY PostMortemID DESC");
 
-                int maxFirID = 0;
-                if (rsCreateFir.next()) {
-                    String maxFirIDStr = rsCreateFir.getString("PostMortemID");
-                    maxFirID = Integer.parseInt(maxFirIDStr.substring(3));
+                int maxPostMortemID = 0;
+                if (rsUpdateFir.next()) {
+                    String maxPostMortemIDStr = rsUpdateFir.getString("PostMortemID");
+                    maxPostMortemID = Integer.parseInt(maxPostMortemIDStr.substring(3));
                 }
 
-                String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
+                String nextPostMortemID = "Pos" + String.format("%03d", maxPostMortemID + 1);
 
-                PreparedStatement preUpdateFir = connCrimeFile.prepareStatement("Update PostMortem Set Location = ?, DateOfDeath = ?, "
+                PreparedStatement preUpdatePostMortem = connCrimeFile.prepareStatement("Update PostMortem Set Location = ?, DateOfDeath = ?, "
                                + "CauseOfDeath = ?, Evidence = ?, DoctorName = ? WHERE PostMortemID = ?");
-                preUpdateFir.setString(1, location);
-                preUpdateFir.setDate(2, java.sql.Date.valueOf(date));
-                preUpdateFir.setString(3, causeOfDeath);
-                preUpdateFir.setString(4, evidence);
-                preUpdateFir.setString(5, doctorName);
-                preUpdateFir.setString(6, firID);
-                preUpdateFir.executeUpdate();
+                preUpdatePostMortem.setString(1, location);
+                preUpdatePostMortem.setDate(2, java.sql.Date.valueOf(date));
+                preUpdatePostMortem.setString(3, causeOfDeath);
+                preUpdatePostMortem.setString(4, evidence);
+                preUpdatePostMortem.setString(5, doctorName);
+                preUpdatePostMortem.setString(6, postmortemID);
+                preUpdatePostMortem.executeUpdate();
 
-                rsCreateFir.close();
-                preUpdateFir.close();
+                rsUpdateFir.close();
+                preUpdatePostMortem.close();
                 JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                DefaultTableModel model = (DefaultTableModel) tbPostMortem.getModel();
-                model.setValueAt(location, selectRow, 1);
-                model.setValueAt(date, selectRow, 2);
-                model.setValueAt(causeOfDeath, selectRow, 3);
-                model.setValueAt(evidence, selectRow, 4);
-                model.setValueAt(doctorName, selectRow, 5);
-
-                tbPostMortem.setModel(model);
+                dataArrayListPostMortem();
+                loadDataArrayListToTable();
             } catch (SQLException ex) {
                 System.out.println("Error create " + ex);
             }
@@ -695,7 +694,7 @@ public class Manage_PostMortem extends WindowAction {
                 arrPostmortem.add(postmortemTable);
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving data from FIR: " + e);
+            System.out.println("Error retrieving data from PostMortem: " + e);
         }
     }
 
