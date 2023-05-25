@@ -2,7 +2,7 @@ Create database CrimeFile
 Go
 Use CrimeFile
 Go
-Create table [User] (
+Create table [Users] (
 Username varchar(255) Primary key,
 Fullname varchar(255) Not null,
 Age int Not null,
@@ -32,7 +32,7 @@ Evidence varchar(255) Not null,
 AdminID varchar(255) Foreign key references Administrator
 )
 Go
-Create table [Case] (
+Create table [Cases] (
 CaseID varchar(255) Primary key,
 CaseName varchar(255) Not null,
 Status varchar Not null,
@@ -109,17 +109,17 @@ ComplaintDate Date Not null,
 ComplainType varchar(255) Not null,
 Description varchar(255) Not null,
 Status varchar(255) Default('pending'),
-Username varchar(255) Foreign key references  [User]
+Username varchar(255) Foreign key references  [Users]
 )
 Go
 Create table ManageUser(
 AdminID varchar(255) Foreign key references Administrator,
-Username varchar(255) Foreign key references [User],
+Username varchar(255) Foreign key references [Users],
 Primary key (AdminID, Username)
 )
 Go
 Create table RegisterComplaint (
-Username varchar(255) Foreign key references [User],
+Username varchar(255) Foreign key references [Users],
 ComplaintID varchar(255) Foreign key references Complaint,
 Primary key(Username, ComplaintID)
 )
@@ -131,7 +131,7 @@ Primary key (AdminID, FirID)
 )
 Go
 Create table CaseInvestigate (
-CaseID varchar(255) Foreign key references [Case],
+CaseID varchar(255) Foreign key references [Cases],
 InvestigatingOfficerID varchar(255) Foreign key references InvestigatingOfficer,
 Primary key (CaseID, InvestigatingOfficerID)
 )
