@@ -5,7 +5,19 @@
  */
 package frame.crime;
 
+import connection.MainConnection;
 import frame.background_processing.WindowAction;
+import frame.home.Home_Admin;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import object.Crime;
 
 /**
  *
@@ -13,11 +25,16 @@ import frame.background_processing.WindowAction;
  */
 public class Crime_Manage extends WindowAction {
 
+    public static final ArrayList<Crime> arrCrime = new ArrayList<Crime>();
+    public static final Connection connCrimeFile = MainConnection.getConnection();
+
     /**
      * Creates new form Crime_Manage
      */
     public Crime_Manage() {
+        dataArrayListFromCrime();
         initComponents();
+        loadDataArrayListToTable();
     }
 
     /**
@@ -43,14 +60,14 @@ public class Crime_Manage extends WindowAction {
         lbType = new javax.swing.JLabel();
         txtFullname = new javax.swing.JTextField();
         txtAge = new javax.swing.JTextField();
-        cbbGender = new javax.swing.JComboBox<String>();
+        cbbGender = new javax.swing.JComboBox<>();
         txtOccupation = new javax.swing.JTextField();
-        cbbType = new javax.swing.JComboBox<String>();
+        cbbType = new javax.swing.JComboBox<>();
         btnReset = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
-        txtfSearch = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         btnReturn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -80,6 +97,11 @@ public class Crime_Manage extends WindowAction {
                 return types [columnIndex];
             }
         });
+        tableCrime.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCrimeMouseClicked(evt);
+            }
+        });
         scrollPaneCrime.setViewportView(tableCrime);
 
         panelControlCrime.setBackground(new java.awt.Color(204, 204, 204));
@@ -104,50 +126,60 @@ public class Crime_Manage extends WindowAction {
 
         txtFullname.setBackground(new java.awt.Color(215, 215, 215));
         txtFullname.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtFullname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFullnameFocusLost(evt);
+            }
+        });
 
         txtAge.setBackground(new java.awt.Color(215, 215, 215));
         txtAge.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtAge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAgeActionPerformed(evt);
+        txtAge.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAgeFocusLost(evt);
             }
         });
 
         cbbGender.setBackground(new java.awt.Color(215, 215, 215));
         cbbGender.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbbGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female", " " }));
+        cbbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", " " }));
 
         txtOccupation.setBackground(new java.awt.Color(215, 215, 215));
         txtOccupation.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtOccupation.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtOccupationFocusLost(evt);
+            }
+        });
 
         cbbType.setBackground(new java.awt.Color(215, 215, 215));
         cbbType.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cbbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime", " " }));
+        cbbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corruption", "Counterfeit Currency Or Documents", "Crimes Against Children", "Cyber Crime", "Drug Trafficking", "Environmental Crime", "Financial Crime\t", "Firearms Trafficking", "Human Trafficking", "Illcit Goods", "Killing Crime", "Kidnap Crime", " " }));
 
         btnReset.setBackground(new java.awt.Color(51, 51, 51));
         btnReset.setForeground(new java.awt.Color(51, 51, 51));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
             }
         });
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setForeground(new java.awt.Color(255, 0, 51));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
             }
         });
 
         btnUpdate.setBackground(new java.awt.Color(51, 204, 255));
         btnUpdate.setForeground(new java.awt.Color(0, 204, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
             }
         });
 
@@ -155,6 +187,11 @@ public class Crime_Manage extends WindowAction {
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
         btnCreate.setMaximumSize(new java.awt.Dimension(95, 31));
+        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCreateMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelControlCrimeLayout = new javax.swing.GroupLayout(panelControlCrime);
         panelControlCrime.setLayout(panelControlCrimeLayout);
@@ -218,13 +255,13 @@ public class Crime_Manage extends WindowAction {
                             .addComponent(lbOccupation)
                             .addComponent(txtOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelControlCrimeLayout.createSequentialGroup()
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25)
                 .addGroup(panelControlCrimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cbbType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,16 +269,21 @@ public class Crime_Manage extends WindowAction {
                 .addGap(288, 288, 288))
         );
 
-        txtfSearch.setBackground(new java.awt.Color(245, 245, 245));
-        txtfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtfSearch.setText("Search");
-        txtfSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfSearchActionPerformed(evt);
+        txtSearch.setBackground(new java.awt.Color(245, 245, 245));
+        txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSearch.setText("Search");
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSearchMouseClicked(evt);
             }
         });
 
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -256,7 +298,7 @@ public class Crime_Manage extends WindowAction {
                                 .addComponent(scrollPaneCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(panelControlCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 487, Short.MAX_VALUE))
-                            .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -276,7 +318,7 @@ public class Crime_Manage extends WindowAction {
                 .addGap(98, 98, 98)
                 .addComponent(lbRegisterComplaint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPaneCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,25 +341,204 @@ public class Crime_Manage extends WindowAction {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfSearchActionPerformed
+    private String getNextCrimeID() throws SQLException {
+        String nextCrimeID = "";
 
-    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeActionPerformed
+        Statement staCreateCrime = connCrimeFile.createStatement();
+        ResultSet rsCreateCrime = staCreateCrime.executeQuery("SELECT MAX(CrimeID) AS MaxCrimeID FROM Crime");
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
+        if (rsCreateCrime.next()) {
+            String maxCrimeID = rsCreateCrime.getString("MaxCrimeID");
+            if (maxCrimeID != null) {
+                int numericPart = Integer.parseInt(maxCrimeID.substring(3));
+                numericPart++;
+                nextCrimeID = "Cri" + String.format("%03d", numericPart);
+            } else {
+                nextCrimeID = "Cri001";
+            }
+        }
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        rsCreateCrime.close();
+        staCreateCrime.close();
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        return nextCrimeID;
+    }
+    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        int selectRow = tableCrime.getSelectedRow();
+
+        String fullName = txtFullname.getText();
+        String age = txtAge.getText();
+        String genderStr = cbbGender.getSelectedItem().toString();
+        char gender = genderStr.charAt(0);
+        String Occupation = txtOccupation.getText();
+        String type = cbbType.getSelectedItem().toString();
+
+        try {
+            String nextCrimeID = getNextCrimeID();
+
+            PreparedStatement preUpdateCrime = connCrimeFile.prepareStatement("INSERT INTO Crime (CrimeID, Fullname, Age, Gender, Occupation, Type) VALUES (?,?,?,?,?,?)");
+            preUpdateCrime.setString(1, nextCrimeID);
+            preUpdateCrime.setString(2, fullName);
+            preUpdateCrime.setString(3, age);
+            preUpdateCrime.setString(4, String.valueOf(gender));
+            preUpdateCrime.setString(5, Occupation);
+            preUpdateCrime.setString(6, type);
+            preUpdateCrime.executeUpdate();
+
+            preUpdateCrime.close();
+            JOptionPane.showMessageDialog(null, "Create successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dataArrayListFromCrime();
+            loadDataArrayListToTable();
+        } catch (SQLException ex) {
+            System.out.println("Error create " + ex);
+        }
+    }//GEN-LAST:event_btnCreateMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        int confirmResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to update?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            int selectRow = tableCrime.getSelectedRow();
+
+            String crimeID = tableCrime.getValueAt(selectRow, 0).toString();
+            String fullName = txtFullname.getText();
+            String age = txtAge.getText();
+            String genderStr = cbbGender.getSelectedItem().toString();
+            char gender = genderStr.charAt(0);
+            String occupation = txtOccupation.getText();
+            String type = cbbType.getSelectedItem().toString();
+
+            try {
+                PreparedStatement preUpdateCase = connCrimeFile.prepareStatement("Update Crime Set Fullname = ? , Age = ?, Gender = ?, Occupation = ?, Type = ?"
+                               + " Where CrimeID = ?");
+                preUpdateCase.setString(1, fullName);
+                preUpdateCase.setString(2, age);
+                preUpdateCase.setString(3, String.valueOf(gender));
+                preUpdateCase.setString(4, occupation);
+                preUpdateCase.setString(5, type);
+                preUpdateCase.setString(6, crimeID);
+                preUpdateCase.executeUpdate();
+
+                preUpdateCase.close();
+                JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dataArrayListFromCrime();
+                loadDataArrayListToTable();
+            } catch (SQLException ex) {
+                System.out.println("Error create " + ex);
+            }
+        }
+
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        int rely = JOptionPane.showConfirmDialog(this, "You sure want to delete !", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (rely == JOptionPane.YES_OPTION) {
+            String idColumnDelete;
+            int rowDelete;
+            rowDelete = tableCrime.getSelectedRow();
+            idColumnDelete = (String) tableCrime.getValueAt(rowDelete, 0);
+            System.out.println(" " + idColumnDelete);
+            deleteRow(idColumnDelete);
+            dataArrayListFromCrime();
+            loadDataArrayListToTable();
+            JOptionPane.showMessageDialog(this, "Successful Delete.");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        txtFullname.setText("");
+        txtAge.setText("");
+        cbbGender.setSelectedItem("Male");
+        txtOccupation.setText("");
+        cbbType.setSelectedItem("Corruption");
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void tableCrimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCrimeMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tableCrime.getModel();
+        int selectIndex = tableCrime.getSelectedRow();
+        txtFullname.setText(model.getValueAt(selectIndex, 1).toString());
+        txtAge.setText(model.getValueAt(selectIndex, 2).toString());
+        cbbGender.setSelectedItem(model.getValueAt(selectIndex, 3).toString());
+        txtOccupation.setText(model.getValueAt(selectIndex, 4).toString());
+        cbbType.setSelectedItem(model.getValueAt(selectIndex, 5).toString());
+    }//GEN-LAST:event_tableCrimeMouseClicked
+
+    private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
+        arrCrime.clear();
+        try {
+            String searchEnter = txtSearch.getText();
+            String sqlSearch = "SELECT CrimeID, Fullname, Age, Gender, Occupation, Type FROM Crime Where CrimeID Like ? Or Fullname Like ? "
+                           + "Or Age Like ? Or Gender Or Occupation Like ? Or Type = ?";
+            PreparedStatement preSearch = connCrimeFile.prepareStatement(sqlSearch);
+            preSearch.setString(1, "%" + searchEnter + "%");
+            preSearch.setString(2, "%" + searchEnter + "%");
+            preSearch.setString(3, "%" + searchEnter + "%");
+            preSearch.setString(4, "%" + searchEnter + "%");
+            preSearch.setString(5, "%" + searchEnter + "%");
+            preSearch.setString(6, "%" + searchEnter + "%");
+            ResultSet rsCrime = preSearch.executeQuery();
+            while (rsCrime.next()) {
+                String crimeID = rsCrime.getString("CrimeID");
+                String fullName = rsCrime.getString("Fullname");
+                int age = rsCrime.getInt("Age");
+                String genderStr = rsCrime.getString("Gender");
+                char gender = genderStr.charAt(0);
+                String occupation = rsCrime.getString("Occupation");
+                String type = rsCrime.getString("Type");
+
+                Crime crimeTable = new Crime(crimeID, fullName, age, gender, occupation, type);
+                arrCrime.add(crimeTable);
+            }
+            loadDataArrayListToTable();
+        } catch (SQLException e) {
+            System.out.println("Error search " + e);
+        }
+    }//GEN-LAST:event_txtSearchMouseClicked
+
+    private void txtFullnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFullnameFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Fullname not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtFullnameFocusLost
+
+    private void txtAgeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAgeFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        String age = textField.getText();
+        if (age.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Age cannot be empty!");
+            textField.requestFocus();
+            return;
+        }
+
+        try {
+            int ageValue = Integer.parseInt(age);
+            if (ageValue < 1 || ageValue > 150) {
+                JOptionPane.showMessageDialog(this, "Age must be a number between 1 and 150!");
+                textField.setText("");
+                textField.requestFocus();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Age must be a valid number!");
+            textField.setText("");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtAgeFocusLost
+
+    private void txtOccupationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOccupationFocusLost
+        JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Occupation not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtOccupationFocusLost
+
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnReturnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -373,10 +594,60 @@ public class Crime_Manage extends WindowAction {
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panelControlCrime;
     private javax.swing.JScrollPane scrollPaneCrime;
-    private javax.swing.JTable tableCrime;
+    private static javax.swing.JTable tableCrime;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtFullname;
     private javax.swing.JTextField txtOccupation;
-    private javax.swing.JTextField txtfSearch;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void dataArrayListFromCrime() {
+        arrCrime.clear();
+        try {
+            Statement staCrime = connCrimeFile.createStatement();
+            ResultSet rsCrime = staCrime.executeQuery("SELECT CrimeID, Fullname, Age, Gender, Occupation, Type FROM Crime");
+            System.out.println("CrimeID\t Fullname\t Age\t Gender\t Occupation\t Type");
+            while (rsCrime.next()) {
+                String crimeID = rsCrime.getString("CrimeID");
+                String fullName = rsCrime.getString("Fullname");
+                int age = rsCrime.getInt("Age");
+                String genderStr = rsCrime.getString("Gender");
+                char gender = genderStr.charAt(0);
+                String occupation = rsCrime.getString("Occupation");
+                String type = rsCrime.getString("Type");
+
+                Crime crimeTable = new Crime(crimeID, fullName, age, gender, occupation, type);
+                arrCrime.add(crimeTable);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving data from Crime: " + e);
+        }
+    }
+
+    private void loadDataArrayListToTable() {
+        DefaultTableModel model = (DefaultTableModel) Crime_Manage.tableCrime.getModel();
+        model.setRowCount(0);
+
+        for (Crime crime : arrCrime) {
+            model.addRow(new Object[]{crime.getCrimeID(), crime.getfullName(), crime.getAge(), crime.getGender(), crime.getOccupation(), crime.getType()});
+        }
+    }
+
+    private void deleteRow(String idColumnDelete) {
+        int rows = 0;
+        try {
+            String sqlDelete = "Delete From Crime Where  CrimeID = ?";
+            PreparedStatement preDelete = connCrimeFile.prepareStatement(sqlDelete);
+            preDelete.setString(1, idColumnDelete);
+            rows = preDelete.executeUpdate();
+            if (rows >= 1) {
+                System.out.println("Successful Delete");
+            } else {
+                JOptionPane.showMessageDialog(this, "Delete failed", "Notice", HEIGHT);
+            }
+            preDelete.close();
+        } catch (SQLException e) {
+            System.out.println("Error delete row " + e);
+        }
+    }
 }
