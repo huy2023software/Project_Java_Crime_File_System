@@ -71,7 +71,6 @@ public class Manage_Case extends WindowAction {
 
         lbManageCase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_case_manage.png"))); // NOI18N
 
-        tbCase.setBackground(new java.awt.Color(204, 204, 204));
         tbCase.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tbCase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
