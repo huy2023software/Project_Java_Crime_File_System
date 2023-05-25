@@ -1,21 +1,38 @@
+
+import connection.MainConnection;
 import frame.background_processing.WindowAction;
+import frame.home.Home_Admin;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import object.Case;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author PREDATOR
  */
 public class Manage_Case extends WindowAction {
 
+    public static final ArrayList<Case> arrCase = new ArrayList<Case>();
+    public static final Connection connCrimeFile = MainConnection.getConnection();
+
     /**
      * Creates new form Manage_Case
      */
     public Manage_Case() {
+        dataArrayListFromCase();
         initComponents();
+        loadDataArrayListToTable();
     }
 
     /**
@@ -37,14 +54,15 @@ public class Manage_Case extends WindowAction {
         lbStatus = new javax.swing.JLabel();
         lbFirID = new javax.swing.JLabel();
         txtCaseName = new javax.swing.JTextField();
-        txtStatus = new javax.swing.JTextField();
         txtFirID = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        cbbStatus = new javax.swing.JComboBox<>();
         lbLogo = new javax.swing.JLabel();
         btnReturn = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -63,6 +81,11 @@ public class Manage_Case extends WindowAction {
                 "Case ID", "Case Name", "Status", "FIR ID"
             }
         ));
+        tbCase.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCaseMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCase);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -80,13 +103,6 @@ public class Manage_Case extends WindowAction {
         lbFirID.setText("FIR ID");
 
         txtCaseName.setBackground(new java.awt.Color(228, 228, 228));
-        txtCaseName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCaseNameActionPerformed(evt);
-            }
-        });
-
-        txtStatus.setBackground(new java.awt.Color(228, 228, 228));
 
         txtFirID.setBackground(new java.awt.Color(228, 228, 228));
 
@@ -94,33 +110,41 @@ public class Manage_Case extends WindowAction {
         btnCreate.setForeground(new java.awt.Color(51, 153, 0));
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/create-button.png"))); // NOI18N
         btnCreate.setMaximumSize(new java.awt.Dimension(95, 31));
+        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCreateMouseClicked(evt);
+            }
+        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 204, 255));
         btnUpdate.setForeground(new java.awt.Color(0, 204, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/update_button.png"))); // NOI18N
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
             }
         });
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setForeground(new java.awt.Color(255, 0, 51));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/delete-button.png"))); // NOI18N
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
             }
         });
 
         btnReset.setBackground(new java.awt.Color(51, 51, 51));
         btnReset.setForeground(new java.awt.Color(51, 51, 51));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/reset_button.png"))); // NOI18N
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
             }
         });
+
+        cbbStatus.setBackground(new java.awt.Color(228, 228, 228));
+        cbbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Investigating", "Closed", "Resolved" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -138,13 +162,16 @@ public class Manage_Case extends WindowAction {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbCaseName)
-                        .addGap(37, 37, 37)
-                        .addComponent(txtCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbStatus)
+                                .addGap(71, 71, 71)
+                                .addComponent(cbbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbCaseName)
+                                .addGap(37, 37, 37)
+                                .addComponent(txtCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,10 +191,13 @@ public class Manage_Case extends WindowAction {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbCaseName)
                             .addComponent(txtCaseName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbStatus))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(lbStatus))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFirID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,27 +215,58 @@ public class Manage_Case extends WindowAction {
         );
 
         lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo.png"))); // NOI18N
+        lbLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLogoMouseClicked(evt);
+            }
+        });
 
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/button/btn_return.png"))); // NOI18N
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
+
+        txtSearch.setBackground(new java.awt.Color(245, 245, 245));
+        txtSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(153, 153, 153));
+        txtSearch.setText("Search...");
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbManageCase)
-                .addGap(393, 393, 393))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(btnReturn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbLogo))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbManageCase)
+                        .addGap(393, 393, 393))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +275,9 @@ public class Manage_Case extends WindowAction {
                     .addComponent(lbLogo)
                     .addComponent(btnReturn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addComponent(lbManageCase)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbManageCase, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,21 +303,163 @@ public class Manage_Case extends WindowAction {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCaseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCaseNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCaseNameActionPerformed
+    private String getNextCaseID() throws SQLException {
+        String nextCaseID = "";
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        Statement staCreateCase = connCrimeFile.createStatement();
+        ResultSet rsCreateCase = staCreateCase.executeQuery("SELECT MAX(CaseID) AS MaxCaseID FROM [Cases]");
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        if (rsCreateCase.next()) {
+            String maxCaseID = rsCreateCase.getString("MaxCaseID");
+            if (maxCaseID != null) {
+                int numericPart = Integer.parseInt(maxCaseID.substring(3));
+                numericPart++;
+                nextCaseID = "Cas" + String.format("%03d", numericPart);
+            } else {
+                nextCaseID = "Cas001";
+            }
+        }
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
+        rsCreateCase.close();
+        staCreateCase.close();
+
+        return nextCaseID;
+    }
+
+    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        int selectRow = tbCase.getSelectedRow();
+
+        String caseName = txtCaseName.getText();
+        String status = cbbStatus.getSelectedItem().toString();
+        String firID = txtFirID.getText();
+
+        try {
+            String nextCaseID = getNextCaseID();
+
+            PreparedStatement preUpdateCase = connCrimeFile.prepareStatement("INSERT INTO [Cases] (CaseID, CaseName, Status, FirID) VALUES (?,?,?,?)");
+            preUpdateCase.setString(1, nextCaseID);
+            preUpdateCase.setString(2, caseName);
+            preUpdateCase.setString(3, status);
+            preUpdateCase.setString(4, firID);
+            preUpdateCase.executeUpdate();
+
+            preUpdateCase.close();
+            JOptionPane.showMessageDialog(null, "Create successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dataArrayListFromCase();
+            loadDataArrayListToTable();
+        } catch (SQLException ex) {
+            System.out.println("Error create " + ex);
+        }
+    }//GEN-LAST:event_btnCreateMouseClicked
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        Color placeholderForeground = new Color(153, 153, 153);
+        txtSearch.setText("Search ...");
+        txtSearch.setForeground(placeholderForeground);
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        arrCase.clear();
+        try {
+            String searchEnter = txtSearch.getText();
+            String sqlSearch = "SELECT CaseID, CaseName, Status, FirID FROM [Cases] Where CaseID Like ? Or CaseName Like ? "
+                           + "Or Status Like ? Or FirID Like ? ";
+            PreparedStatement preSearch = connCrimeFile.prepareStatement(sqlSearch);
+            preSearch.setString(1, "%" + searchEnter + "%");
+            preSearch.setString(2, "%" + searchEnter + "%");
+            preSearch.setString(3, "%" + searchEnter + "%");
+            preSearch.setString(4, "%" + searchEnter + "%");
+            ResultSet rsCase = preSearch.executeQuery();
+            while (rsCase.next()) {
+                String caseID = rsCase.getString("CaseID");
+                String caseName = rsCase.getString("CaseName");
+                String status = rsCase.getString("Status");
+                String firID = rsCase.getString("FirID");
+
+                Case caseTable = new Case(caseID, caseName, status, firID, "", "", "", null, "", "", "", 0, '\0', "", "", "");
+                arrCase.add(caseTable);
+            }
+            loadDataArrayListToTable();
+        }catch (SQLException e) {
+            System.out.println("Error search " + e);
+        }
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        int confirmResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to update?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            int selectRow = tbCase.getSelectedRow();
+            
+            String caseID = tbCase.getValueAt(selectRow, 0).toString();
+            String caseName = txtCaseName.getText();
+            String status = cbbStatus.getSelectedItem().toString();
+            String firID = txtFirID.getText();
+
+            try {
+                PreparedStatement preUpdateCase = connCrimeFile.prepareStatement("Update [Cases] Set CaseName = ? , Status = ?, FirID = ? Where CaseID = ?");
+                preUpdateCase.setString(1, caseName);
+                preUpdateCase.setString(2, status);
+                preUpdateCase.setString(3, firID);
+                preUpdateCase.setString(4, caseID);
+                preUpdateCase.executeUpdate();
+
+                preUpdateCase.close();
+                JOptionPane.showMessageDialog(null, "Update successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dataArrayListFromCase();
+                loadDataArrayListToTable();
+            } catch (SQLException ex) {
+                System.out.println("Error create " + ex);
+            }
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        int rely = JOptionPane.showConfirmDialog(this, "You sure want to delete !", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (rely == JOptionPane.YES_OPTION) {
+            String idColumnDelete;
+            int rowDelete;
+            rowDelete = tbCase.getSelectedRow();
+            idColumnDelete = (String) tbCase.getValueAt(rowDelete, 0);
+            System.out.println(" " + idColumnDelete);
+            deleteRow(idColumnDelete);
+            dataArrayListFromCase();
+            loadDataArrayListToTable();
+            JOptionPane.showMessageDialog(this, "Successful Delete.");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        txtCaseName.setText("");
+        cbbStatus.setSelectedItem("Investigating");
+        txtFirID.setText("");
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void tbCaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCaseMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tbCase.getModel();
+        int selectIndex = tbCase.getSelectedRow();
+        txtCaseName.setText(model.getValueAt(selectIndex, 1).toString());
+        cbbStatus.setSelectedItem(model.getValueAt(selectIndex, 2).toString());
+        txtFirID.setText(model.getValueAt(selectIndex, 3).toString());
+    }//GEN-LAST:event_tbCaseMouseClicked
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        Color textForeground = Color.BLACK;
+        txtSearch.setText("");
+        txtSearch.setForeground(textForeground);
+    }//GEN-LAST:event_txtSearchFocusGained
+
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnReturnMouseClicked
+
+    private void lbLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoMouseClicked
+        Home_Admin homeAdmin = new Home_Admin();
+        homeAdmin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lbLogoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -297,6 +502,7 @@ public class Manage_Case extends WindowAction {
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel btnReturn;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cbbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -306,9 +512,56 @@ public class Manage_Case extends WindowAction {
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbManageCase;
     private javax.swing.JLabel lbStatus;
-    private javax.swing.JTable tbCase;
+    private static javax.swing.JTable tbCase;
     private javax.swing.JTextField txtCaseName;
     private javax.swing.JTextField txtFirID;
-    private javax.swing.JTextField txtStatus;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void dataArrayListFromCase() {
+        arrCase.clear();
+        try {
+            Statement staCase = connCrimeFile.createStatement();
+            ResultSet rsCase = staCase.executeQuery("SELECT CaseID, CaseName, Status, FirID FROM [Cases]");
+            System.out.println("CaseID\tCaseName\tStatus\tFirID");
+            while (rsCase.next()) {
+                String caseID = rsCase.getString("CaseID");
+                String caseName = rsCase.getString("CaseName");
+                String status = rsCase.getString("Status");
+                String firID = rsCase.getString("FirID");
+
+                Case caseTable = new Case(caseID, caseName, status, firID, "", "", "", null, "", "", "", 0, '\0', "", "", "");
+                arrCase.add(caseTable);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving data from FIR: " + e);
+        }
+    }
+
+    private void loadDataArrayListToTable() {
+        DefaultTableModel model = (DefaultTableModel) Manage_Case.tbCase.getModel();
+        model.setRowCount(0);
+
+        for (Case caseData : arrCase) {
+            model.addRow(new Object[]{caseData.getCaseID(), caseData.getCaseName(), caseData.getStatus(), caseData.getFirID()});
+        }
+    }
+
+    private void deleteRow(String idColumnDelete) {
+        int rows = 0;
+        try {
+            String sqlDelete = "Delete From FIR Where FirID = ?";
+            PreparedStatement preDelete = connCrimeFile.prepareStatement(sqlDelete);
+            preDelete.setString(1, idColumnDelete);
+            rows = preDelete.executeUpdate();
+            if (rows >= 1) {
+                System.out.println("Successful Delete");
+            } else {
+                System.out.println(rows + "Failed");
+            }
+            preDelete.close();
+        } catch (SQLException e) {
+            System.out.println("Error delete row" + e);
+        }
+    }
 }

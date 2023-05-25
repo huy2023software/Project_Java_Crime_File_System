@@ -5,7 +5,15 @@
 
 package frame.viewcase;
 
+import connection.MainConnection;
 import frame.background_processing.WindowAction;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import object.Case;
 
 /**
  *
@@ -13,9 +21,13 @@ import frame.background_processing.WindowAction;
  */
 public class View_Case extends WindowAction {
 
+     public static final ArrayList<Case> arrCase = new ArrayList<Case>();
+    public static final Connection connCrimeFile = MainConnection.getConnection();
     /** Creates new form View_Case */
     public View_Case() {
+        dataArrayListFromCase();
         initComponents();
+        loadDataArrayListToTable();
     }
 
     /** This method is called from within the constructor to
@@ -146,7 +158,35 @@ public class View_Case extends WindowAction {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbLogoViewCase;
-    private javax.swing.JTable tbCaseHistory;
+    private static javax.swing.JTable tbCaseHistory;
     // End of variables declaration//GEN-END:variables
 
+    private void dataArrayListFromCase() {
+        arrCase.clear();
+        try {
+            Statement staCase = connCrimeFile.createStatement();
+            ResultSet rsCase = staCase.executeQuery("SELECT CaseID, CaseName, Status, FirID FROM [Cases]");
+            System.out.println("CaseID\tCaseName\tStatus\tFirID");
+            while (rsCase.next()) {
+                String caseID = rsCase.getString("CaseID");
+                String caseName = rsCase.getString("CaseName");
+                String status = rsCase.getString("Status");
+                String firID = rsCase.getString("FirID");
+
+                Case caseTable = new Case(caseID, caseName, status, firID, "", "", "", null, "", "", "", 0, '\0', "", "", "");
+                arrCase.add(caseTable);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving data from FIR: " + e);
+        }
+    }
+
+    private void loadDataArrayListToTable() {
+        DefaultTableModel model = (DefaultTableModel) View_Case.tbCaseHistory.getModel();
+        model.setRowCount(0);
+
+        for (Case caseData : arrCase) {
+            model.addRow(new Object[]{caseData.getCaseID(), caseData.getCaseName(), caseData.getStatus(), caseData.getFirID()});
+        }
+    }
 }
