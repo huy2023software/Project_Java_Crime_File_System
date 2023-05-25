@@ -68,6 +68,8 @@ public class Manage_Fir extends WindowAction {
         cbbDay = new javax.swing.JComboBox<>();
         cbbMonth = new javax.swing.JComboBox<>();
         cbbYear = new javax.swing.JComboBox<>();
+        lbAdminID = new javax.swing.JLabel();
+        txtAdminID = new javax.swing.JTextField();
         lbLogo = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
 
@@ -98,7 +100,6 @@ public class Manage_Fir extends WindowAction {
             }
         });
 
-        tbFir.setBackground(new java.awt.Color(204, 204, 204));
         tbFir.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tbFir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,11 +175,6 @@ public class Manage_Fir extends WindowAction {
                 btnCreateMouseClicked(evt);
             }
         });
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
 
         btnUpdate.setBackground(new java.awt.Color(51, 204, 255));
         btnUpdate.setForeground(new java.awt.Color(0, 204, 255));
@@ -216,6 +212,16 @@ public class Manage_Fir extends WindowAction {
 
         cbbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
 
+        lbAdminID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbAdminID.setText("Admin ID");
+
+        txtAdminID.setBackground(new java.awt.Color(220, 220, 220));
+        txtAdminID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAdminIDFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnControlFIRLayout = new javax.swing.GroupLayout(pnControlFIR);
         pnControlFIR.setLayout(pnControlFIRLayout);
         pnControlFIRLayout.setHorizontalGroup(
@@ -242,13 +248,14 @@ public class Manage_Fir extends WindowAction {
                             .addComponent(txtSuspectName, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                             .addComponent(txtDescription)
                             .addComponent(txtLocation))
+                        .addGap(51, 51, 51)
+                        .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDateOfOccurence)
+                            .addComponent(lbEvidence)
+                            .addComponent(lbAdminID))
+                        .addGap(18, 18, 18)
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnControlFIRLayout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbDateOfOccurence)
-                                    .addComponent(lbEvidence))
-                                .addGap(18, 18, 18)
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnControlFIRLayout.createSequentialGroup()
@@ -257,11 +264,12 @@ public class Manage_Fir extends WindowAction {
                                         .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cbbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                                 .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
+                            .addGroup(pnControlFIRLayout.createSequentialGroup()
+                                .addComponent(txtAdminID, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnControlFIRLayout.createSequentialGroup()
@@ -297,7 +305,10 @@ public class Manage_Fir extends WindowAction {
                                         .addGap(26, 26, 26)
                                         .addComponent(txtEvidence, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21)
-                                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbAdminID)
+                                    .addComponent(txtAdminID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnControlFIRLayout.createSequentialGroup()
                         .addGroup(pnControlFIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -400,6 +411,7 @@ public class Manage_Fir extends WindowAction {
         String location = txtLocation.getText();
         String description = txtDescription.getText();
         String evidence = txtEvidence.getText();
+        String adminID = txtAdminID.getText();
 
         String dayStr = cbbDay.getSelectedItem().toString();
         String monthStr = cbbMonth.getSelectedItem().toString();
@@ -431,13 +443,14 @@ public class Manage_Fir extends WindowAction {
 
             String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
 
-            PreparedStatement preCreateFir = connCrimeFile.prepareStatement("INSERT INTO FIR (FirID, SuspectName, Location, Description, DateOfOccurence, Evidence) VALUES (?,?,?,?,?,?)");
+            PreparedStatement preCreateFir = connCrimeFile.prepareStatement("INSERT INTO FIR (FirID, SuspectName, Location, Description, DateOfOccurence, Evidence, AdminID) VALUES (?,?,?,?,?,?,?)");
             preCreateFir.setString(1, nextFirID);
             preCreateFir.setString(2, suspectName);
             preCreateFir.setString(3, location);
             preCreateFir.setString(4, description);
             preCreateFir.setDate(5, java.sql.Date.valueOf(date));
             preCreateFir.setString(6, evidence);
+            preCreateFir.setString(7, adminID);
             preCreateFir.executeUpdate();
 
             rsCreateFir.close();
@@ -490,6 +503,7 @@ public class Manage_Fir extends WindowAction {
         txtDescription.setText(model.getValueAt(selectIndex, 3).toString());
         java.sql.Date dateValue = (java.sql.Date) model.getValueAt(selectIndex, 4);
         txtEvidence.setText(model.getValueAt(selectIndex, 5).toString());
+        txtAdminID.setText(model.getValueAt(selectIndex, 6).toString());
 
         LocalDate localDate = dateValue.toLocalDate();
 
@@ -512,6 +526,7 @@ public class Manage_Fir extends WindowAction {
             String location = txtLocation.getText();
             String description = txtDescription.getText();
             String evidence = txtEvidence.getText();
+            String adminID = txtAdminID.getText();
 
             String dayStr = cbbDay.getSelectedItem().toString();
             String monthStr = cbbMonth.getSelectedItem().toString();
@@ -544,13 +559,14 @@ public class Manage_Fir extends WindowAction {
                 String nextFirID = "Fir" + String.format("%03d", maxFirID + 1);
 
                 PreparedStatement preUpdateFir = connCrimeFile.prepareStatement("Update FIR Set SuspectName = ?, Location = ?, "
-                               + "Description = ?, DateOfOccurence = ?, Evidence = ? WHERE FirID = ?");
+                               + "Description = ?, DateOfOccurence = ?, Evidence = ?, AdminID = ? WHERE FirID = ?");
                 preUpdateFir.setString(1, suspectName);
                 preUpdateFir.setString(2, location);
                 preUpdateFir.setString(3, description);
                 preUpdateFir.setDate(4, java.sql.Date.valueOf(date));
                 preUpdateFir.setString(5, evidence);
-                preUpdateFir.setString(6, firID);
+                preUpdateFir.setString(6, adminID);
+                preUpdateFir.setString(7, firID);
                 preUpdateFir.executeUpdate();
 
                 rsUpdateFir.close();
@@ -584,12 +600,13 @@ public class Manage_Fir extends WindowAction {
         try {
             String searchEnter = txtSearch.getText();
             String sqlSearch = "Select FirID, SuspectName, Location, Description, DateOfOccurence, Evidence, AdminID From FIR Where FirID Like ? Or SuspectName Like ? "
-                           + "Or Location Like ? Or Description Like ? Or Evidence Like ?";
+                           + "Or Location Like ? Or Description Like ? Or Evidence Like ? Or AdminID Like ?";
             PreparedStatement preSearch = connCrimeFile.prepareStatement(sqlSearch);
             preSearch.setString(1, "%" + searchEnter + "%");
             preSearch.setString(2, "%" + searchEnter + "%");
             preSearch.setString(3, "%" + searchEnter + "%");
             preSearch.setString(4, "%" + searchEnter + "%");
+            preSearch.setString(5, "%" + searchEnter + "%");
             preSearch.setString(5, "%" + searchEnter + "%");
             ResultSet rsSearch = preSearch.executeQuery();
             while (rsSearch.next()) {
@@ -632,6 +649,7 @@ public class Manage_Fir extends WindowAction {
         cbbDay.setSelectedItem(1);
         cbbMonth.setSelectedItem(1);
         cbbYear.setSelectedItem(2023);
+         txtAdminID.setText("");
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void lbLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoMouseClicked
@@ -646,9 +664,13 @@ public class Manage_Fir extends WindowAction {
         dispose();
     }//GEN-LAST:event_btnReturnMouseClicked
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        
-    }//GEN-LAST:event_btnCreateActionPerformed
+    private void txtAdminIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAdminIDFocusLost
+       JTextField textField = (JTextField) evt.getSource();
+        if (textField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Admin ID not empty !");
+            textField.requestFocus();
+        }
+    }//GEN-LAST:event_txtAdminIDFocusLost
 
     /**
      * @param args the command line arguments
@@ -696,6 +718,7 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JComboBox<String> cbbYear;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbAdminID;
     private javax.swing.JLabel lbControlFIR;
     private javax.swing.JLabel lbDateOfOccurence;
     private javax.swing.JLabel lbDescription;
@@ -706,6 +729,7 @@ public class Manage_Fir extends WindowAction {
     private javax.swing.JLabel lbSuspectName;
     private javax.swing.JPanel pnControlFIR;
     private static javax.swing.JTable tbFir;
+    private javax.swing.JTextField txtAdminID;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtEvidence;
     private javax.swing.JTextField txtLocation;
