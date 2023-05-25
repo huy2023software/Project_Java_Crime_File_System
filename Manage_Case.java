@@ -47,7 +47,7 @@ public class Manage_Case extends WindowAction {
         jPanel1 = new javax.swing.JPanel();
         lbManageCase = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCase = new javax.swing.JTable();
+        tableCase = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lbControlCase = new javax.swing.JLabel();
         lbCaseName = new javax.swing.JLabel();
@@ -71,8 +71,8 @@ public class Manage_Case extends WindowAction {
 
         lbManageCase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo/logo_case_manage.png"))); // NOI18N
 
-        tbCase.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        tbCase.setModel(new javax.swing.table.DefaultTableModel(
+        tableCase.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        tableCase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -80,12 +80,12 @@ public class Manage_Case extends WindowAction {
                 "Case ID", "Case Name", "Status", "FIR ID"
             }
         ));
-        tbCase.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableCase.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbCaseMouseClicked(evt);
+                tableCaseMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbCase);
+        jScrollPane1.setViewportView(tableCase);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -203,7 +203,7 @@ public class Manage_Case extends WindowAction {
                             .addComponent(lbFirID))
                         .addGap(0, 70, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -326,7 +326,7 @@ public class Manage_Case extends WindowAction {
     }
 
     private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
-        int selectRow = tbCase.getSelectedRow();
+        int selectRow = tableCase.getSelectedRow();
 
         String caseName = txtCaseName.getText();
         String status = cbbStatus.getSelectedItem().toString();
@@ -388,9 +388,9 @@ public class Manage_Case extends WindowAction {
         int confirmResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to update?", "Confirm Update", JOptionPane.YES_NO_OPTION);
 
         if (confirmResult == JOptionPane.YES_OPTION) {
-            int selectRow = tbCase.getSelectedRow();
+            int selectRow = tableCase.getSelectedRow();
             
-            String caseID = tbCase.getValueAt(selectRow, 0).toString();
+            String caseID = tableCase.getValueAt(selectRow, 0).toString();
             String caseName = txtCaseName.getText();
             String status = cbbStatus.getSelectedItem().toString();
             String firID = txtFirID.getText();
@@ -418,8 +418,8 @@ public class Manage_Case extends WindowAction {
         if (rely == JOptionPane.YES_OPTION) {
             String idColumnDelete;
             int rowDelete;
-            rowDelete = tbCase.getSelectedRow();
-            idColumnDelete = (String) tbCase.getValueAt(rowDelete, 0);
+            rowDelete = tableCase.getSelectedRow();
+            idColumnDelete = (String) tableCase.getValueAt(rowDelete, 0);
             System.out.println(" " + idColumnDelete);
             deleteRow(idColumnDelete);
             dataArrayListFromCase();
@@ -434,13 +434,13 @@ public class Manage_Case extends WindowAction {
         txtFirID.setText("");
     }//GEN-LAST:event_btnResetMouseClicked
 
-    private void tbCaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCaseMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tbCase.getModel();
-        int selectIndex = tbCase.getSelectedRow();
+    private void tableCaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCaseMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tableCase.getModel();
+        int selectIndex = tableCase.getSelectedRow();
         txtCaseName.setText(model.getValueAt(selectIndex, 1).toString());
         cbbStatus.setSelectedItem(model.getValueAt(selectIndex, 2).toString());
         txtFirID.setText(model.getValueAt(selectIndex, 3).toString());
-    }//GEN-LAST:event_tbCaseMouseClicked
+    }//GEN-LAST:event_tableCaseMouseClicked
 
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
         Color textForeground = Color.BLACK;
@@ -511,7 +511,7 @@ public class Manage_Case extends WindowAction {
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbManageCase;
     private javax.swing.JLabel lbStatus;
-    private static javax.swing.JTable tbCase;
+    private static javax.swing.JTable tableCase;
     private javax.swing.JTextField txtCaseName;
     private javax.swing.JTextField txtFirID;
     private javax.swing.JTextField txtSearch;
@@ -533,12 +533,12 @@ public class Manage_Case extends WindowAction {
                 arrCase.add(caseTable);
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving data from FIR: " + e);
+            System.out.println("Error retrieving data from Case: " + e);
         }
     }
 
     private void loadDataArrayListToTable() {
-        DefaultTableModel model = (DefaultTableModel) Manage_Case.tbCase.getModel();
+        DefaultTableModel model = (DefaultTableModel) Manage_Case.tableCase.getModel();
         model.setRowCount(0);
 
         for (Case caseData : arrCase) {
@@ -549,14 +549,14 @@ public class Manage_Case extends WindowAction {
     private void deleteRow(String idColumnDelete) {
         int rows = 0;
         try {
-            String sqlDelete = "Delete From FIR Where FirID = ?";
+            String sqlDelete = "Delete From [Cases] Where CaseID =  ?";
             PreparedStatement preDelete = connCrimeFile.prepareStatement(sqlDelete);
             preDelete.setString(1, idColumnDelete);
             rows = preDelete.executeUpdate();
             if (rows >= 1) {
                 System.out.println("Successful Delete");
             } else {
-                System.out.println(rows + "Failed");
+                JOptionPane.showMessageDialog(this, "Delete failed", "Notice", HEIGHT);
             }
             preDelete.close();
         } catch (SQLException e) {
