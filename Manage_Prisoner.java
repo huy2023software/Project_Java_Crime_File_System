@@ -90,13 +90,11 @@ public class Manage_Prisoner extends WindowAction {
         txtSearch.setForeground(new java.awt.Color(153, 153, 153));
         txtSearch.setText("Search...");
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
-            }
-        });
-        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtSearchMouseClicked(evt);
             }
         });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -529,12 +527,6 @@ public class Manage_Prisoner extends WindowAction {
         txtSearch.setForeground(placeholderForeground);
     }//GEN-LAST:event_txtSearchFocusLost
 
-    private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
-        Color textForeground = Color.BLACK;
-        txtSearch.setText("");
-        txtSearch.setForeground(textForeground);
-    }//GEN-LAST:event_txtSearchMouseClicked
-
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
         Home_Admin homeAdmin = new Home_Admin();
         homeAdmin.setVisible(true);
@@ -562,6 +554,12 @@ public class Manage_Prisoner extends WindowAction {
         txtPrisonTerm.setText(model.getValueAt(selectIndex, 5).toString());
         cbbStatus.setSelectedItem(model.getValueAt(selectIndex, 6).toString());
     }//GEN-LAST:event_tbPrisonerMouseClicked
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        Color textForeground = Color.BLACK;
+        txtSearch.setText("");
+        txtSearch.setForeground(textForeground);
+    }//GEN-LAST:event_txtSearchFocusGained
 
     /**
      * @param args the command line arguments
