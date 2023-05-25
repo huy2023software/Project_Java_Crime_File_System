@@ -103,7 +103,6 @@ public class Manage_Prisoner extends WindowAction {
             }
         });
 
-        tbPrisoner.setBackground(new java.awt.Color(204, 204, 204));
         tbPrisoner.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -374,6 +373,11 @@ public class Manage_Prisoner extends WindowAction {
         if (textField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Age not empty !");
             textField.requestFocus();
+        }
+        String age = txtAge.getText();
+        if (!age.matches("^\\d*{10,12}$")) {
+            txtAge.setText("");
+            JOptionPane.showMessageDialog(this, "Age is number and length 10 to 12 digit !");
         }
     }//GEN-LAST:event_txtAgeFocusLost
 
