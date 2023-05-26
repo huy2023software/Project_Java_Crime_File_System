@@ -35,7 +35,7 @@ Go
 Create table [Cases] (
 CaseID varchar(255) Primary key,
 CaseName varchar(255) Not null,
-Status varchar Not null,
+Status varchar(255) Not null,
 FirID varchar(255) Foreign key references FIR
 )
 Go
@@ -106,7 +106,7 @@ ComplaintID varchar(255) Primary key,
 SuspectName varchar(255) Not null,
 Location varchar(255) Not null,
 ComplaintDate Date Not null,
-ComplainType varchar(255) Not null,
+ComplaintType varchar(255) Not null,
 Description varchar(255) Not null,
 Status varchar(255) Default('pending'),
 Username varchar(255) Foreign key references  [Users]
